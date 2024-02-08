@@ -2,8 +2,13 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
+using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;using UnityEngine.InputSystem.UI;
 
+[RequireComponent(typeof(EventSystem))]
+[RequireComponent(typeof(InputSystemUIInputModule))]
+[RequireComponent(typeof(PlayerInput))]
+[RequireComponent(typeof(DontDestroyOnLoad))]
 public class InputManager : Singleton<InputManager>
 {
     private PlayerInput playerInput;
@@ -18,7 +23,6 @@ public class InputManager : Singleton<InputManager>
     protected override void Awake()
     {
         base.Awake();
-
         if (playerInput == null)
         {
             playerInput = GetComponent<PlayerInput>();
