@@ -8,7 +8,7 @@ using UnityEngine.InputSystem;using UnityEngine.InputSystem.UI;
 [RequireComponent(typeof(EventSystem))]
 [RequireComponent(typeof(InputSystemUIInputModule))]
 [RequireComponent(typeof(PlayerInput))]
-[RequireComponent(typeof(DontDestroyOnLoad))]
+
 public class InputManager : Singleton<InputManager>
 {
     private PlayerInput playerInput;

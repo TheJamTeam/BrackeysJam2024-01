@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 2697193567221060724}
   - component: {fileID: 3926905296381768752}
   - component: {fileID: 3299533243907145814}
-  - component: {fileID: 6701105287387140404}
   m_Layer: 0
   m_Name: InputManager
   m_TagString: Untagged
@@ -84,26 +83,16 @@ MonoBehaviour:
   m_XRTrackingOrigin: {fileID: 0}
   m_ActionsAsset: {fileID: -944628639613478452, guid: 85b39a6730bb4e44083213a9ab2ffb9c,
     type: 3}
-  m_PointAction: {fileID: -1654692200621890270, guid: 85b39a6730bb4e44083213a9ab2ffb9c,
-    type: 3}
-  m_MoveAction: {fileID: -8784545083839296357, guid: 85b39a6730bb4e44083213a9ab2ffb9c,
-    type: 3}
-  m_SubmitAction: {fileID: 392368643174621059, guid: 85b39a6730bb4e44083213a9ab2ffb9c,
-    type: 3}
-  m_CancelAction: {fileID: 7727032971491509709, guid: 85b39a6730bb4e44083213a9ab2ffb9c,
-    type: 3}
-  m_LeftClickAction: {fileID: 3001919216989983466, guid: 85b39a6730bb4e44083213a9ab2ffb9c,
-    type: 3}
-  m_MiddleClickAction: {fileID: -2185481485913320682, guid: 85b39a6730bb4e44083213a9ab2ffb9c,
-    type: 3}
-  m_RightClickAction: {fileID: -4090225696740746782, guid: 85b39a6730bb4e44083213a9ab2ffb9c,
-    type: 3}
-  m_ScrollWheelAction: {fileID: 6240969308177333660, guid: 85b39a6730bb4e44083213a9ab2ffb9c,
-    type: 3}
-  m_TrackedDevicePositionAction: {fileID: 6564999863303420839, guid: 85b39a6730bb4e44083213a9ab2ffb9c,
-    type: 3}
-  m_TrackedDeviceOrientationAction: {fileID: 7970375526676320489, guid: 85b39a6730bb4e44083213a9ab2ffb9c,
-    type: 3}
+  m_PointAction: {fileID: 0}
+  m_MoveAction: {fileID: 0}
+  m_SubmitAction: {fileID: 0}
+  m_CancelAction: {fileID: 0}
+  m_LeftClickAction: {fileID: 0}
+  m_MiddleClickAction: {fileID: 0}
+  m_RightClickAction: {fileID: 0}
+  m_ScrollWheelAction: {fileID: 0}
+  m_TrackedDevicePositionAction: {fileID: 0}
+  m_TrackedDeviceOrientationAction: {fileID: 0}
   m_DeselectOnBackgroundClick: 1
   m_PointerBehavior: 0
   m_CursorLockBehavior: 0
@@ -242,15 +231,3 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
---- !u!114 &6701105287387140404
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7953965534004041341}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8f10120bd6b17ea45bf838310b23f356, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
