@@ -17,6 +17,17 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
 
     protected virtual void Awake()
     {
+        Initialize();
+    }
+
+    private void OnDestroy()
+    {
+        if (instance == this)
+            instance = null;
+    }
+
+    private void Initialize()
+    {
         if (instance != null && instance != this)
         {
             Destroy(gameObject);
@@ -24,11 +35,5 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
         }
         
         instance = this as T;
-    }
-
-    private void OnDestroy()
-    {
-        if (instance == this)
-            instance = null;
     }
 }
