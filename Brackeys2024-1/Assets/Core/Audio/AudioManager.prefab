@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3850225283944689370}
   - component: {fileID: 2849904549416316264}
+  - component: {fileID: 856046589}
   m_Layer: 0
   m_Name: AudioManager
   m_TagString: Untagged
@@ -24,13 +25,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6986852466076077701}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2849904549416316264
 MonoBehaviour:
@@ -44,9 +45,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a439bb4df59b7c409d8c1decaed4ee3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  audioMixer: {fileID: 24100000, guid: 40e2884f3344b2e46b7d709567c2fe48, type: 2}
   masterMute: 0
   masterVolume: 1
-  audioMixer: {fileID: 24100000, guid: 40e2884f3344b2e46b7d709567c2fe48, type: 2}
   musicMute: 0
   musicVolume: 1
   musicMix: {fileID: -1413795500009600871, guid: 40e2884f3344b2e46b7d709567c2fe48,
@@ -60,15 +61,15 @@ MonoBehaviour:
   sfxMute: 0
   sfxVolume: 1
   sfxMix: {fileID: 1164407368917790334, guid: 40e2884f3344b2e46b7d709567c2fe48, type: 2}
-  sounds:
-  - name: UiBlip
-    clip: {fileID: 8300000, guid: d89bdd79a236dbd45b3951c270fe341c, type: 3}
-    volumePercent: 1
-  dialogueMute: 0
-  dialogueVolume: 1
-  dialogueMix: {fileID: -321397112277999116, guid: 40e2884f3344b2e46b7d709567c2fe48,
-    type: 2}
-  dialogue:
-  - name: DialogueTest
-    clip: {fileID: 0}
-    volumePercent: 1
+--- !u!114 &856046589
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6986852466076077701}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f10120bd6b17ea45bf838310b23f356, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

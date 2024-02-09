@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4167246684995210655}
   - component: {fileID: 778690702073652320}
   - component: {fileID: 3915564312191366604}
-  - component: {fileID: 247776736275395947}
+  - component: {fileID: 2494155304951869892}
   m_Layer: 5
   m_Name: Options
   m_TagString: Untagged
@@ -135,7 +135,19 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
---- !u!114 &247776736275395947
+      - m_Target: {fileID: 2494155304951869892}
+        m_TargetAssemblyTypeName: AudioComponent, Assembly-CSharp
+        m_MethodName: PlaySound
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Activate
+          m_BoolArgument: 1
+        m_CallState: 2
+--- !u!114 &2494155304951869892
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -144,26 +156,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 651477779067508945}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Script: {fileID: 11500000, guid: eb0acee71b96b1d4e838f8cc686d9192, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Delegates:
-  - eventID: 0
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 0}
-          m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
-          m_MethodName: PlaySound
-          m_Mode: 5
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: UiBlip
-            m_BoolArgument: 0
-          m_CallState: 2
+  sounds:
+  - name: Activate
+    clip: {fileID: 8300000, guid: d89bdd79a236dbd45b3951c270fe341c, type: 3}
+    volumePercent: 1
 --- !u!1 &1547638464762313888
 GameObject:
   m_ObjectHideFlags: 0
@@ -176,7 +175,7 @@ GameObject:
   - component: {fileID: 6952235236657549476}
   - component: {fileID: 5303063085882264160}
   - component: {fileID: 1720824536495490321}
-  - component: {fileID: 2177246979122503695}
+  - component: {fileID: 7668293767020298870}
   m_Layer: 5
   m_Name: Quit
   m_TagString: Untagged
@@ -299,7 +298,19 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &2177246979122503695
+      - m_Target: {fileID: 7668293767020298870}
+        m_TargetAssemblyTypeName: AudioComponent, Assembly-CSharp
+        m_MethodName: PlaySound
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Activate
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &7668293767020298870
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -308,26 +319,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1547638464762313888}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Script: {fileID: 11500000, guid: eb0acee71b96b1d4e838f8cc686d9192, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Delegates:
-  - eventID: 0
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 0}
-          m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
-          m_MethodName: PlaySound
-          m_Mode: 5
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: UiBlip
-            m_BoolArgument: 0
-          m_CallState: 2
+  sounds:
+  - name: Activate
+    clip: {fileID: 8300000, guid: d89bdd79a236dbd45b3951c270fe341c, type: 3}
+    volumePercent: 1
 --- !u!1 &3047607776528653828
 GameObject:
   m_ObjectHideFlags: 0
@@ -363,7 +361,7 @@ RectTransform:
   - {fileID: 6485603359246451680}
   - {fileID: 5360388361081215378}
   m_Father: {fileID: 0}
-  m_RootOrder: -1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -720,7 +718,7 @@ GameObject:
   - component: {fileID: 2448732607535713841}
   - component: {fileID: 2488067504070959774}
   - component: {fileID: 4261392303706156400}
-  - component: {fileID: 7662675964333076047}
+  - component: {fileID: 608587513617258438}
   m_Layer: 5
   m_Name: Continue
   m_TagString: Untagged
@@ -831,6 +829,18 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 608587513617258438}
+        m_TargetAssemblyTypeName: AudioComponent, Assembly-CSharp
+        m_MethodName: PlaySound
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Activate
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 3047607776528653828}
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
@@ -843,7 +853,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &7662675964333076047
+--- !u!114 &608587513617258438
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -852,26 +862,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 6463476595676880405}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Script: {fileID: 11500000, guid: eb0acee71b96b1d4e838f8cc686d9192, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Delegates:
-  - eventID: 0
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 0}
-          m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
-          m_MethodName: PlaySound
-          m_Mode: 5
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: UiBlip
-            m_BoolArgument: 0
-          m_CallState: 2
+  sounds:
+  - name: Activate
+    clip: {fileID: 8300000, guid: d89bdd79a236dbd45b3951c270fe341c, type: 3}
+    volumePercent: 1
 --- !u!1 &6699587553961825978
 GameObject:
   m_ObjectHideFlags: 0

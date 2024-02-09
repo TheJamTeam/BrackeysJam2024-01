@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.Serialization;
@@ -8,6 +9,16 @@ using UnityEngine.Serialization;
 [Serializable]
 public struct Sound
 {
+    public static bool operator ==(Sound s1, Sound s2) 
+    {
+        return s1.Equals(s2);
+    }
+
+    public static bool operator !=(Sound s1, Sound s2) 
+    {
+        return !s1.Equals(s2);
+    }
+
     public string name;
     public AudioClip clip;
     public float volumePercent;
@@ -15,58 +26,59 @@ public struct Sound
 
 public class AudioManager : Singleton<AudioManager>
 {
+    public AudioMixer audioMixer;
+    
+    [Header("Master")]
     public bool masterMute = false;
     public float masterVolume;
-    public AudioMixer audioMixer;
 
     [Header("Music")]
     public bool musicMute;
     public float musicVolume;
     public AudioMixerGroup musicMix;
     private AudioSource musicSource;
-    public bool playOnStart;
     private Sound currentMusic;
-    public string startingMusic;
-    public List<Sound> music = new List<Sound>();
 
-    [Header("Sound Effects")]
+    [Header("Sound Effects (Sfx)")]
     public bool sfxMute = false;
     public float sfxVolume;
     public AudioMixerGroup sfxMix;
-    public List<Sound> sounds = new List<Sound>();
-    private List<AudioSource> activeSources = new List<AudioSource>();
+    private List<AudioSource> _activeSources = new List<AudioSource>();
 
-    [Header("Dialogue")]
-    public bool dialogueMute;
-    public float dialogueVolume;
-    public AudioMixerGroup dialogueMix;
-    private AudioSource dialogueSource;
-    public List<Sound> dialogue = new List<Sound>();
-
+    #region Unity Functions
 
     private void Start()
     {
-        if(playOnStart)
-            PlayMusic(startingMusic);
-
-        //Reset volumes to default.
+        //Reset volumes to saved values.
         ChangeMasterVol(masterVolume);
         ChangeSfxVol(sfxVolume);
         ChangeMusicVol(musicVolume);
-        ChangeDialogueVol(dialogueVolume);
     }
     
-    public void PlaySound(string soundToPlay)
+    //Audio Clean-up
+    private void Update()
     {
-        Sound sound = sounds.Find(s => s.name == soundToPlay);
+        CleanUpSoundEffects();
+    }
 
-        if (sound.clip == null)
-        {
-            Debug.Log("Sound not found: " + soundToPlay);
-            return;
-        }
+    #endregion
 
-        PlaySound(sound);
+    #region Master
+
+    public void ChangeMasterVol(float sliderValue)
+    {
+        masterVolume = sliderValue;
+        audioMixer.SetFloat("MasterVol", Mathf.Log10(masterVolume) * 20);
+    }
+
+    #endregion
+    
+    #region Sound Effects (Sfx)
+
+    public void ChangeSfxVol(float sliderValue)
+    {
+        sfxVolume = sliderValue; 
+        audioMixer.SetFloat("SfxVol", Mathf.Log10(sfxVolume) * 20);
     }
     
     public void PlaySound(Sound soundToPlay)
@@ -74,7 +86,7 @@ public class AudioManager : Singleton<AudioManager>
         if (masterMute || sfxMute)
             return;
         
-        if (activeSources.Count >= 5)
+        if (_activeSources.Count >= 5)
             return;
 
         AudioSource source = gameObject.AddComponent<AudioSource>();
@@ -84,99 +96,58 @@ public class AudioManager : Singleton<AudioManager>
         source.volume = soundToPlay.volumePercent * sfxVolume;
         source.Play();
 
-        activeSources.Add(source);
-    }
-
-    public void PlayMusic(string musicToPlay)
-    {
-        Sound sound = music.Find(s => s.name == musicToPlay);
-
-        if (sound.clip == null)
-        {
-            Debug.Log("Music not found: " + musicToPlay);
-            return;
-        }
-        
-        PlayMusic(sound);
+        _activeSources.Add(source);
     }
     
-    public void PlayMusic(Sound musicToPlay)
-    {
-        if (masterMute || sfxMute)
-            return;
-        
-        if (activeSources.Count >= 5)
-            return;
-
-        if (!musicSource)
-        {
-            musicSource = gameObject.AddComponent<AudioSource>();
-            musicSource.outputAudioMixerGroup = musicMix;
-        }
-        
-        currentMusic = musicToPlay;
-        musicSource.clip = currentMusic.clip;
-        musicSource.volume = currentMusic.volumePercent * musicVolume;
-        
-        musicSource.loop = true;
-        musicSource.Play();
-    }
-
-    public void PlayDialogue(string dialogueToPlay)
-    {
-        Sound sound = dialogue.Find(s => s.name == dialogueToPlay);
-
-        if (sound.clip == null)
-        {
-            Debug.Log("Dialogue not found: " + dialogueToPlay);
-            return;
-        }
-
-        PlayDialogue(sound);
-    }
-
-    public void PlayDialogue(Sound dialogueToPlay)
-    {
-        if (masterMute || dialogueMute)
-            return;
-
-        if (!dialogueSource)
-        {
-            dialogueSource = gameObject.AddComponent<AudioSource>();
-            dialogueSource.outputAudioMixerGroup = dialogueMix;
-        }
-
-        dialogueSource.clip = dialogueToPlay.clip;
-        dialogueSource.volume = dialogueToPlay.volumePercent * dialogueVolume;
-        dialogueSource.Play();
-
-        activeSources.Add(dialogueSource);
-    }
-
-    //Audio Clean-up
-    private void Update()
+    private void CleanUpSoundEffects()
     {
         // Clean up finished sounds
-        for (int i = activeSources.Count - 1; i >= 0; i--)
+        for (int i = _activeSources.Count - 1; i >= 0; i--)
         {
-            if (!activeSources[i].isPlaying)
+            if (!_activeSources[i].isPlaying)
             {
-                Destroy(activeSources[i]);
-                activeSources.RemoveAt(i);
+                Destroy(_activeSources[i]);
+                _activeSources.RemoveAt(i);
             }
         }
     }
 
-    public void ChangeMasterVol(float sliderValue)
-    {
-        masterVolume = sliderValue;
-        audioMixer.SetFloat("MasterVol", Mathf.Log10(masterVolume) * 20);
-    }
+    #endregion
     
-    public void ChangeSfxVol(float sliderValue)
+    #region Music
+    
+    public void PlayMusic(Sound musicToPlay)
     {
-        sfxVolume = sliderValue; 
-        audioMixer.SetFloat("SfxVol", Mathf.Log10(sfxVolume) * 20);
+        if (musicToPlay.clip is not null)
+        {
+            //Check if Muted
+            if (masterMute || musicMute)
+            {
+                return;
+            }
+
+            //Don't play an already playing track
+            if (currentMusic == musicToPlay)
+            {
+                Debug.Log(String.Format("Attempting to play a music '%s', but it was already playing!", musicToPlay.name));
+                return;
+            }
+
+            //Initialize Music Source 
+            if (musicSource is null)
+            {
+                musicSource = gameObject.AddComponent<AudioSource>();
+                musicSource.outputAudioMixerGroup = musicMix;
+            }
+            
+            //Update and play Track
+            currentMusic = musicToPlay;
+            musicSource.clip = currentMusic.clip;
+            musicSource.volume = currentMusic.volumePercent * musicVolume;
+        
+            musicSource.loop = true;
+            musicSource.Play();
+        }
     }
     
     public void ChangeMusicVol(float sliderValue)
@@ -185,9 +156,8 @@ public class AudioManager : Singleton<AudioManager>
         audioMixer.SetFloat("MusicVol", Mathf.Log10(musicVolume) * 20);
     }
 
-    public void ChangeDialogueVol(float sliderValue)
-    {
-        dialogueVolume = sliderValue;
-        audioMixer.SetFloat("DialogueVol", Mathf.Log10(dialogueVolume) * 20);
-    }
+    #endregion
+    
+    
+    
 }
