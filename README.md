@@ -18,6 +18,7 @@ Unity Version: 21.3.8f1
 4. Scene Management
 5. Options Menu
 6. Pause Menu
-7. Audio Manager
+7. Audio Management and Component
+8. Video Component
 
 # ====================
