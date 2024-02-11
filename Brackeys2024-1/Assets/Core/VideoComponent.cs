@@ -7,6 +7,9 @@ using UnityEngine.Video;
 [Serializable]
 public struct Video
 {
+    
+    #region Equality Overrides
+
     public static bool operator ==(Video v1, Video v2) 
     {
         return v1.Equals(v2);
@@ -16,6 +19,21 @@ public struct Video
     {
         return !v1.Equals(v2);
     }
+
+    public override bool Equals(object obj)
+    {
+        if (ReferenceEquals(null, obj)) return false;
+        if (obj.GetType() != this.GetType()) return false;
+        return this.filename == ((Video)obj).filename;
+    }
+    
+    public override int GetHashCode ()
+    {
+        return this.filename.GetHashCode ();
+    }
+
+    #endregion
+
     [Tooltip("The clip filename and its extension. E.g. 'YourVideoClip.mp4'. \n This file must be stored inside '/Assets/StreamingAssets/'")]
     public string filename;
     [Tooltip("Should this clip loop on completion? This will override the play Sequence.")]

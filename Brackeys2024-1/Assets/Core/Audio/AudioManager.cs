@@ -9,6 +9,8 @@ using UnityEngine.Serialization;
 [Serializable]
 public struct Sound
 {
+    #region Equality Overrides
+
     public static bool operator ==(Sound s1, Sound s2) 
     {
         return s1.Equals(s2);
@@ -19,6 +21,20 @@ public struct Sound
         return !s1.Equals(s2);
     }
 
+    public override bool Equals(object obj)
+    {
+        if (ReferenceEquals(null, obj)) return false;
+        if (obj.GetType() != this.GetType()) return false;
+        return this.clip == ((Sound)obj).clip;
+    }
+    
+    public override int GetHashCode ()
+    {
+        return this.clip.GetHashCode ();
+    }
+
+    #endregion
+    
     public string name;
     public AudioClip clip;
     public float volumePercent;
