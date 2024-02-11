@@ -18,7 +18,8 @@ public class GameStateManager : Singleton<GameStateManager>
 
     private GameState gameState;
     
-    public event Action OnGameOver;
+    public static event Action OnGameOver;
+    public static event Action<bool> OnGamePauseChanged;
     // Start is called before the first frame update
     void Start()
     {
@@ -49,12 +50,14 @@ public class GameStateManager : Singleton<GameStateManager>
     {
         Time.timeScale = 0;
         IsPaused = true;
+        OnGamePauseChanged?.Invoke(true);
     }
     
     public void ResumeGame()
     {
         Time.timeScale = 1;
         IsPaused = false;
+        OnGamePauseChanged?.Invoke(false);
     }
 
     public void GameOver(bool isVictory)

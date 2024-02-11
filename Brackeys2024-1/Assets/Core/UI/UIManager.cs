@@ -14,19 +14,19 @@ public class UIManager : MonoBehaviour
     private void OnEnable()
     {
         if(GameStateManager.Instance != null)
-            GameStateManager.Instance.OnGameOver += OnGameOver;
+            GameStateManager.OnGameOver += OnGameOver;
     }
     
     private void OnDisable()
     {
         if(GameStateManager.Instance != null)
-            GameStateManager.Instance.OnGameOver -= OnGameOver;
+            GameStateManager.OnGameOver -= OnGameOver;
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        GameStateManager.Instance.OnGameOver += OnGameOver;
+        GameStateManager.OnGameOver += OnGameOver;
     }
     
     void OnGameOver()
