@@ -56,11 +56,18 @@ public class VideoComponent : MonoBehaviour
 
     private void OnEnable()
     {
+        GameStateManager.OnGameStart += OnStart;
         GameStateManager.OnGamePauseChanged += OnGamePause;
     }
 
+    private void OnDisable()
+    {
+        GameStateManager.OnGameStart -= OnStart;
+        GameStateManager.OnGamePauseChanged -= OnGamePause;
+    }
+
     // Start is called before the first frame update
-    void Start()
+    void OnStart()
     {
         //Init Audio Source
         if (!_audioSource)
@@ -89,8 +96,6 @@ public class VideoComponent : MonoBehaviour
 
     void OnVideoFinished()
     {
-        Video video = videoList[currentVideoIndex];
-
         if (playInSequence)
         {
             //Next index is valid?

@@ -11,6 +11,7 @@ public struct GameState
     public bool isVictorious;
     public float playTime;
 }
+
 public class GameStateManager : Singleton<GameStateManager>
 {
     [field: SerializeField]
@@ -18,20 +19,22 @@ public class GameStateManager : Singleton<GameStateManager>
 
     private GameState gameState;
     
+    public static event Action OnGameStart;
     public static event Action OnGameOver;
     public static event Action<bool> OnGamePauseChanged;
     // Start is called before the first frame update
     void Start()
     {
-        if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex == 0) return;
-            StartGame();
+        StartGame();
     }
 
-    public void StartGame()
+    //The game entry point
+    private void StartGame()
     {
         if(IsPaused || Time.timeScale == 0) ResumeGame();
         gameState = new GameState();
-
+        
+        OnGameStart?.Invoke();
     }
 
     // Update is called once per frame
@@ -43,7 +46,7 @@ public class GameStateManager : Singleton<GameStateManager>
 
     void GameUpdate()
     {
-        
+        //Connect components here for update. This makes sure that different components run in the correct order.
     }
 
     public void PauseGame()
@@ -66,7 +69,6 @@ public class GameStateManager : Singleton<GameStateManager>
         {
             UpdateGameState(null, 0, 0, true); 
         }
-
         
         PauseGame();
         OnGameOver?.Invoke();

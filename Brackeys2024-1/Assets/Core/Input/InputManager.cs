@@ -27,11 +27,7 @@ public class InputManager : Singleton<InputManager>
         {
             playerInput = GetComponent<PlayerInput>();
         }
-    }
-    
-    // Start is called before the first frame update
-    void Start()
-    {
+        
         if (!playerInput.camera)
         {
             playerInput.camera = Camera.main;
@@ -58,12 +54,12 @@ public class InputManager : Singleton<InputManager>
         OnPrimaryUpdated?.Invoke();
     }
 
+    //Returns the pointer position in screen space as 0..1f
     public void OnPointerPosition(InputAction.CallbackContext context)
     {
         Vector2 pos = context.ReadValue<Vector2>();
         pos = new Vector2(Mathf.Clamp(pos.x / Screen.width, 0f, 1f), Mathf.Clamp(pos.y / Screen.height, 0f, 1f));
         pointerPositionScreenSpace = pos;
-
     }
 
 
