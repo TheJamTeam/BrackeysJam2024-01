@@ -20,7 +20,7 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
         Initialize();
     }
 
-    private void OnDestroy()
+    protected virtual void OnDestroy()
     {
         if (instance == this)
             instance = null;
