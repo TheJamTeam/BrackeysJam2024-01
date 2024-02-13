@@ -53,23 +53,11 @@ public class UIManager : Singleton<UIManager> {
 	//----------------------------------------------------------------------------------------------------------
 
 	private void Update() {
-		bool pausePress = false;
-		bool backPress = false;
-
-		if(Current.GetType() != typeof(HUD)) {
-			// TODO: pausePress = Input.Actions.UI.Pause.WasPressedThisFrame();
-		} else {
-			// TODO: pausePress = Input.Actions.Player.Pause.WasPressedThisFrame();
-		}
-
-		if(pausePress) {
+		if(Input.GetKeyDown(KeyCode.Escape)) {
 			if(stack.Count > 1)
 				Back();
 			else if(Context.Exists)
 				Game.Instance.Pause(!Game.Instance.IsPaused);
-		} else if(backPress) {
-			if(stack.Count > 1)
-				Back();
 		}
 	}
 

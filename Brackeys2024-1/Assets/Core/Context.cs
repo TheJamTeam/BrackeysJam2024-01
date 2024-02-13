@@ -33,11 +33,12 @@ public class Context : Singleton<Context> {
 	protected override void OnDestroy() {
 		base.OnDestroy();
 
+		// Game.Instance.Pause(true);
+		// UIManager.Camera.gameObject.SetActive(true);
+
 		for(int i = 0; i < roomScenes.Length; i++) {
 			SceneManager.UnloadSceneAsync(roomScenes[i]);
 		}
-
-		UIManager.Camera.gameObject.SetActive(true);
 	}
 
 	public static void Create() {
@@ -48,6 +49,7 @@ public class Context : Singleton<Context> {
 		new GameObject("Context", typeof(Context));
 
 		UIManager.Camera.gameObject.SetActive(false);
+		Game.Instance.Pause(false);
 	}
 
 }
