@@ -1,22 +1,33 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Collections;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class PlayerInteractionComponent : MonoBehaviour
 {
-    public Transform originTransform;
-    //The object the player is currently holding. Can only be holding 1 object at a time.
+    
+    [Tooltip("The object the player is currently holding. Can only be holding 1 object at a time.")][ReadOnly]
     public InteractComponent currentlyHoldingObject = null;
-    //The object the player is currently looking at
+    
+    [Tooltip("The object the player is currently looking at")][ReadOnly]
     public InteractComponent currentFocus = null;
     
-    [Header("Properties")]
-    //The radius around the center of the camera that will be checked for focus targets.
+    [Header("Holding Properties")]
+    [Tooltip("The Transform held objects will stick to. \nAutomatically position, update offset with 'Hold Offset' variable")]
+    public Transform holdTransform;
+    
+    [Tooltip("The distance (in units) that held items gravitate towards.")]
+    public Vector3 holdOffset;
+    
+    [Header("Focusing Properties")]
+    [Tooltip("The radius around the center of the camera that will be checked for focus targets.")]
     public float focusRadius;
-    //The distance (in units) focus targets must be within.
+    
+    [Tooltip("The distance (in units) focus targets must be within.")]
     public float focusRange;
-    //The distance (in units) that held items gravitate towards.
-    public float holdRange;
+    
     
     void OnEnable()
     {
@@ -32,24 +43,27 @@ public class PlayerInteractionComponent : MonoBehaviour
     {
         Interact();
     }
-    
+
     void Update()
     {
         CalculateCurrentFocus();
+    }
+    
+    //Physics Calculations go in Fixed Update
+    void FixedUpdate()
+    {
         if (currentlyHoldingObject)
         {
-            Vector3 holdingPosition = originTransform.position + originTransform.forward * holdRange;
-            
-            currentlyHoldingObject.HoldUpdate(holdingPosition);
+            currentlyHoldingObject.HoldUpdate(holdTransform, GetComponent<Rigidbody>());
         }
     }
 
     //Raycasts from the origin and checks to see if any objects that can interacted with. Then chooses the primary target. Will always choose closest/First
     void CalculateCurrentFocus()
     {
-        Vector3 originPosition = originTransform.transform.position;
-        Vector3 endPosition = originPosition + originTransform.transform.forward * focusRange;
-        RaycastHit[] hits = Physics.CapsuleCastAll(originPosition, endPosition, focusRadius, originTransform.forward, focusRange);
+        Vector3 originPosition = holdTransform.transform.position;
+        Vector3 endPosition = originPosition + holdTransform.transform.forward * focusRange;
+        RaycastHit[] hits = Physics.CapsuleCastAll(originPosition, endPosition, focusRadius, holdTransform.forward, focusRange);
         InteractComponent bestFocus = null;
         
         foreach (RaycastHit hit in hits)
@@ -91,5 +105,10 @@ public class PlayerInteractionComponent : MonoBehaviour
                 currentlyHoldingObject.ToggleIsHeld(true);
             }
         }
+    }
+
+    protected void OnValidate()
+    {
+        holdTransform.localPosition = holdOffset;
     }
 }
