@@ -34,6 +34,8 @@ public class PlayerMovementComponent : MonoBehaviour
 
     void Update()
     {
+		if(Game.IsPaused) return;
+
         if (_movementInput != Vector3.zero)
         {
             transform.Translate( Time.deltaTime * movementSpeed * _movementInput);

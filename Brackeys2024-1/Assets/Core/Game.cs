@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 // Overarching gamee/app manager.
 public class Game : Singleton<Game> {
 
-	public bool IsPaused => isPaused;
+	public static bool IsPaused => Instance.isPaused;
 
 	private bool isPaused = true;
 

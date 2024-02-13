@@ -57,7 +57,7 @@ public class UIManager : Singleton<UIManager> {
 			if(stack.Count > 1)
 				Back();
 			else if(Context.Exists)
-				Game.Instance.Pause(!Game.Instance.IsPaused);
+				Game.Instance.Pause(!Game.IsPaused);
 		}
 	}
 
