@@ -9,7 +9,13 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
 	public static bool Exists => instance != null;
 
     private static T instance;
-	public static T Instance => instance;
+    public static T Instance
+    {
+        get
+        {
+            return instance;
+        }
+    }
 
     protected virtual void Awake()
     {
