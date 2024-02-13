@@ -15,6 +15,7 @@ public class InputManager : Singleton<InputManager>
     [SerializeField] private Vector2 pointerPositionScreenSpace;
     [SerializeField] private Vector3 lookDelta;
     [SerializeField] private Vector3 moveDelta;
+    [SerializeField] private CursorLockMode cursorLockMode;
 
     public static event Action OnPrimaryUpdated;
     public static event Action<Vector2> OnLookUpdated;
@@ -32,6 +33,8 @@ public class InputManager : Singleton<InputManager>
         {
             playerInput.camera = Camera.main;
         }
+
+        Cursor.lockState = cursorLockMode;
     }
 
     public void OnMove(InputAction.CallbackContext context)
