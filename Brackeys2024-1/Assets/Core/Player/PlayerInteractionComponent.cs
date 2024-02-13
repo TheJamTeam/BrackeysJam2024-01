@@ -15,6 +15,8 @@ public class PlayerInteractionComponent : MonoBehaviour
     public float focusRadius;
     //The distance (in units) focus targets must be within.
     public float focusRange;
+    //The distance (in units) that held items gravitate towards.
+    public float holdRange;
     
     void OnEnable()
     {
@@ -34,6 +36,12 @@ public class PlayerInteractionComponent : MonoBehaviour
     void Update()
     {
         CalculateCurrentFocus();
+        if (currentlyHoldingObject)
+        {
+            Vector3 holdingPosition = originTransform.position + originTransform.forward * holdRange;
+            
+            currentlyHoldingObject.HoldUpdate(holdingPosition);
+        }
     }
 
     //Raycasts from the origin and checks to see if any objects that can interacted with. Then chooses the primary target. Will always choose closest/First

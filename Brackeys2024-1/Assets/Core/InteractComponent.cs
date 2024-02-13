@@ -11,12 +11,6 @@ public class InteractComponent : MonoBehaviour
         
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public bool CanBePickedUp()
     {
         //TODO Implement
@@ -26,5 +20,11 @@ public class InteractComponent : MonoBehaviour
     public void ToggleIsHeld(bool toggle)
     {
         //TODO Implement
+    }
+
+    public void HoldUpdate(Vector3 holdOrigin)
+    {
+        transform.position = holdOrigin;
+        //Gravitate towards the held origin.
     }
 }
