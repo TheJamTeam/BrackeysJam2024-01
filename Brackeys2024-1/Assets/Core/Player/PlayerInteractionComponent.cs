@@ -7,7 +7,7 @@ using UnityEngine.Serialization;
 
 public class PlayerInteractionComponent : MonoBehaviour
 {
-    
+    private Rigidbody _rigidbody;
     [Tooltip("The object the player is currently holding. Can only be holding 1 object at a time.")][ReadOnly]
     public InteractComponent currentlyHoldingObject = null;
     
@@ -20,6 +20,16 @@ public class PlayerInteractionComponent : MonoBehaviour
     
     [Tooltip("The distance (in units) that held items gravitate towards.")]
     public Vector3 holdOffset;
+    
+    [Tooltip("How strong the gravity should be based on how close the target is. \n " +
+             "Helps to combat jitter at close distances.")]
+    public AnimationCurve gravityDistanceCurve;
+    
+    [Tooltip("How snappy the object should be to the cursor. High values can cause strange results.")]
+    public float gravityStrength = 10f;
+    
+    [Tooltip("How quick the object should face the correct rotation.")]
+    public float rotationSpeed = 5f;
     
     [Header("Focusing Properties")]
     [Tooltip("The radius around the center of the camera that will be checked for focus targets.")]
@@ -39,6 +49,11 @@ public class PlayerInteractionComponent : MonoBehaviour
         InputManager.OnPrimaryUpdated -= OnPrimaryAction;
     }
 
+    private void Awake()
+    {
+        _rigidbody = GetComponent<Rigidbody>();
+    }
+
     void OnPrimaryAction()
     {
         Interact();
@@ -54,7 +69,7 @@ public class PlayerInteractionComponent : MonoBehaviour
     {
         if (currentlyHoldingObject)
         {
-            currentlyHoldingObject.HoldUpdate(holdTransform, GetComponent<Rigidbody>());
+            currentlyHoldingObject.HoldUpdate(holdTransform, _rigidbody, gravityStrength, gravityDistanceCurve, rotationSpeed);
         }
     }
 
