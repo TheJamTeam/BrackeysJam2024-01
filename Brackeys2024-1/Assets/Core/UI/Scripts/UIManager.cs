@@ -35,6 +35,8 @@ public class UIManager : Singleton<UIManager> {
 	//----------------------------------------------------------------------------------------------------------
 
 	protected override void Awake() {
+		base.Awake();
+
 		canvas = GetComponent<Canvas>();
 
 		for(int i = 0; i < menus.Length; i++) {

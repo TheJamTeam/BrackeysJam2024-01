@@ -9,6 +9,8 @@ public class Context : Singleton<Context> {
 	private Scene[] roomScenes;
 
 	protected override void Awake() {
+		base.Awake();
+
 		// Skip load scene at i = 0 because it should be the main scene.
 		roomScenes = new Scene[SceneManager.sceneCountInBuildSettings - 1];
 		bool[] roomsLoaded = new bool[roomScenes.Length];
@@ -29,6 +31,8 @@ public class Context : Singleton<Context> {
 	}
 
 	protected override void OnDestroy() {
+		base.OnDestroy();
+
 		for(int i = 0; i < roomScenes.Length; i++) {
 			SceneManager.UnloadSceneAsync(roomScenes[i]);
 		}
