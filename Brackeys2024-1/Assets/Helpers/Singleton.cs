@@ -7,20 +7,14 @@ using UnityEngine.SceneManagement;
 public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
 {
     private static T instance;
-    public static T Instance
-    {
-        get
-        {
-            return instance;
-        }
-    }
+	public static T Instance => instance;
 
     protected virtual void Awake()
     {
         Initialize();
     }
 
-    private void OnDestroy()
+    protected virtual void OnDestroy()
     {
         if (instance == this)
             instance = null;
