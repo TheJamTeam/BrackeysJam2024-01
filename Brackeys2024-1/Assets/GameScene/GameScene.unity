@@ -2283,12 +2283,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f908734e4928466469cdf9e2407dbe94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  holdTransform: {fileID: 668319596}
   currentlyHoldingObject: {fileID: 0}
   currentFocus: {fileID: 0}
+  holdTransform: {fileID: 668319596}
+  holdOffset: {x: 0, y: -0.25, z: 1.2}
+  gravityDistanceCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0.097247705
+      value: 0.30861723
+      inSlope: 1.8333093
+      outSlope: 1.8333093
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.051376145
+    - serializedVersion: 3
+      time: 0.774292
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  gravityStrength: 10
+  rotationSpeed: 5
   focusRadius: 0.1
   focusRange: 2
-  holdRange: 1.2
 --- !u!1 &339809154
 GameObject:
   m_ObjectHideFlags: 0
@@ -4077,7 +4103,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 668319595}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.2, z: 1}
+  m_LocalPosition: {x: 0, y: -0.25, z: 1.2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -11663,32 +11689,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IsHeld: 0
-  gravityDistanceCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0.10091743
-      value: 0.19038077
-      inSlope: 2.7017193
-      outSlope: 2.7017193
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0.04589308
-    - serializedVersion: 3
-      time: 0.75964355
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  gravityStrength: 10
-  rotationSpeed: 5
 --- !u!1 &1741895918
 GameObject:
   m_ObjectHideFlags: 0
@@ -13167,32 +13167,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IsHeld: 0
-  gravityDistanceCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0.10091743
-      value: 0.19038077
-      inSlope: 2.7017193
-      outSlope: 2.7017193
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0.04589308
-    - serializedVersion: 3
-      time: 0.75964355
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  gravityStrength: 10
-  rotationSpeed: 5
 --- !u!114 &2083624106
 MonoBehaviour:
   m_ObjectHideFlags: 0
