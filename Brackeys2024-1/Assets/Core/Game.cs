@@ -5,21 +5,21 @@ using UnityEngine.SceneManagement;
 
 // Overarching gamee/app manager.
 public class Game : Singleton<Game> {
-    
-	public static UIManager UI => Instance.ui;
 
-	private UIManager ui;
+	public bool IsPaused => isPaused;
+
+	private bool isPaused = true;
 
 	protected override void Awake() {
 		base.Awake();
-
-		ui = FindObjectOfType<UIManager>();
 	}
 
 	private void Start() {
 		if(Application.isEditor && SceneManager.sceneCount > 1) {
 			// If any additional scene is loaded in the editor, then automatically start game & create context.
 			StartNewGame();
+		} else {
+			UIManager.Show<MainMenu>();
 		}
 	}
 
@@ -29,6 +29,16 @@ public class Game : Singleton<Game> {
 
 	public void QuitGame() {
 		Application.Quit();
+	}
+
+	public void Pause(bool pause) {
+		if(pause && !isPaused) {
+			Time.timeScale = 0.0F;
+		} else if(!pause && isPaused) {
+			Time.timeScale = 1.0F;
+		}
+
+		isPaused = pause;
 	}
 
 }
