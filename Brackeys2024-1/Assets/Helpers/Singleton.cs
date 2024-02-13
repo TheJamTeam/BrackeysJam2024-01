@@ -6,6 +6,8 @@ using UnityEngine.SceneManagement;
 
 public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
 {
+	public static bool Exists => instance != null;
+
     private static T instance;
     public static T Instance
     {
@@ -20,7 +22,7 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
         Initialize();
     }
 
-    private void OnDestroy()
+    protected virtual void OnDestroy()
     {
         if (instance == this)
             instance = null;
