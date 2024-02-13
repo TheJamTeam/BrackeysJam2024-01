@@ -54,7 +54,8 @@ public class InputManager : Singleton<InputManager>
 
     public void OnPrimary(InputAction.CallbackContext context)
     {
-        OnPrimaryUpdated?.Invoke();
+        if(context.performed)
+            OnPrimaryUpdated?.Invoke();
     }
 
     //Returns the pointer position in screen space as 0..1f
