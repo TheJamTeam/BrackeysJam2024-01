@@ -31,6 +31,7 @@ public class UIManager : Singleton<UIManager> {
 	private Dictionary<string, Menu> menuTable = new Dictionary<string, Menu>();
 	private List<Menu> stack = new List<Menu>();
 	private Canvas canvas;
+	private PlayerInput input;
 
 	//----------------------------------------------------------------------------------------------------------
 
@@ -38,6 +39,7 @@ public class UIManager : Singleton<UIManager> {
 		base.Awake();
 
 		canvas = GetComponent<Canvas>();
+		input = FindObjectOfType<PlayerInput>();
 
 		for(int i = 0; i < menus.Length; i++) {
 			if(menuTable.ContainsKey(menus[i].ID)) {
@@ -53,7 +55,7 @@ public class UIManager : Singleton<UIManager> {
 	//----------------------------------------------------------------------------------------------------------
 
 	private void Update() {
-		if(Input.GetKeyDown(KeyCode.Escape)) {
+		if(input.uiInputModule.cancel.action.WasPressedThisFrame()) {
 			if(stack.Count > 1)
 				Back();
 			else if(Context.Exists)
