@@ -67,43 +67,34 @@ public class SocketComponent : MonoBehaviour
 
 
 
-    // Using an anonymous function to call whatever function we actually want to use, otherwise the parameter type is an 'Action<string>', which isn't compatible with 'string'.
     private void OnEnable()
     {
-        OnSocketFilled += anonymousFunction => Print(0);
-        //OnSocketFilled += Printo(OnSocketFilled.ToString());
-        OnSocketCompleted += anonymousFunction => Print(1);
-        OnSocketEmptied += anonymousFunction => Print(-1);
+        OnSocketFilled += Print;
+        OnSocketCompleted += PrintCompleted;
+        OnSocketEmptied += PrintEmptied;
     }
 
     private void OnDisable()
     {
-        OnSocketFilled -= anonymousFunction => Print(0);
-        OnSocketCompleted -= anonymousFunction => Print(1);
-        OnSocketEmptied -= anonymousFunction => Print(-1);
+        OnSocketFilled -= Print;
+        OnSocketCompleted -= PrintCompleted;
+        OnSocketEmptied -= PrintEmptied;
     }
 
 
-    public void Print(int socket)
+    public void Print(string socket)
     {
-        switch (socket)
-        {
-            case -1:
-                Debug.Log($"Unsocketed {previousSocketedItem}");
-                break;
-            case 0:
-                Debug.Log($"Socketed Wrong Item: {socketedItem.name}");
-                break;
-            case 1:
-                Debug.Log($"Socket Complete: {socketID}");
-                break;
-        }
+        Debug.Log($"Socketed Wrong Item: {socket}");
     }
 
-    public Action<string> Printo(string socketInfo)
+    public void PrintCompleted(string socket)
     {
-
-
-        return OnSocketFilled;
+        Debug.Log($"Socket Complete: {socket}");
     }
+
+    public void PrintEmptied(string socket)
+    {
+        Debug.Log($"Unsocketed {socket}");
+    }
+
 }
