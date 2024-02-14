@@ -36,6 +36,8 @@ public class PlayerMovementComponent : MonoBehaviour
 
     void FixedUpdate()
     {
+		if(Game.IsPaused) return;
+
         if (_movementInput != Vector3.zero)
         {
             velocity = Time.deltaTime * movementSpeed * _movementInput;

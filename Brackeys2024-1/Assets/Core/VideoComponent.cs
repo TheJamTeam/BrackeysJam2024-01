@@ -56,14 +56,10 @@ public class VideoComponent : MonoBehaviour
 
     private void OnEnable()
     {
-        GameStateManager.OnGameStart += OnStart;
-        GameStateManager.OnGamePauseChanged += OnGamePause;
     }
 
     private void OnDisable()
     {
-        GameStateManager.OnGameStart -= OnStart;
-        GameStateManager.OnGamePauseChanged -= OnGamePause;
     }
 
     // Start is called before the first frame update
