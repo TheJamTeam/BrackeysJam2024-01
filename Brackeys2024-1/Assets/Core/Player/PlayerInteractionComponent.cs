@@ -67,10 +67,18 @@ public class PlayerInteractionComponent : MonoBehaviour
     //Physics Calculations go in Fixed Update
     void FixedUpdate()
     {
-        if (currentlyHoldingObject)
+        if (currentlyHoldingObject && currentlyHoldingObject.IsHeld)
         {
-            currentlyHoldingObject.HoldUpdate(holdTransform, _rigidbody, gravityStrength, gravityDistanceCurve, rotationSpeed);
+            if (currentlyHoldingObject.IsHeld)
+            {
+                currentlyHoldingObject.HoldUpdate(holdTransform, _rigidbody, gravityStrength, gravityDistanceCurve, rotationSpeed);
+            }
+            else
+            {
+                currentlyHoldingObject = null;
+            }
         }
+        
     }
 
     //Raycasts from the origin and checks to see if any objects that can interacted with. Then chooses the primary target. Will always choose closest/First

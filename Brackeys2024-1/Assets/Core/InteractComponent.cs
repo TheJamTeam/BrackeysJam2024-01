@@ -9,6 +9,7 @@ public class InteractComponent : MonoBehaviour
     public string InteractID;
     [ReadOnly]
     public bool IsHeld = false;
+    public SocketComponent IsSocketedBy;
     private Rigidbody _rigidbody;
     
     // Start is called before the first frame update
@@ -29,6 +30,13 @@ public class InteractComponent : MonoBehaviour
         _rigidbody.useGravity = !toggle;
     }
 
+    public void AddToSocket(SocketComponent socket)
+    {
+        ToggleIsHeld(false);
+        IsSocketedBy = socket;
+        _rigidbody.useGravity = false;
+    }
+
     public void HoldUpdate(Transform holdOrigin, Rigidbody holdRigidbody, float gravityStrength, AnimationCurve gravityDistanceCurve, float rotationSpeed)
     {
         Vector3 directionToOrigin = holdOrigin.position - transform.position;
@@ -41,7 +49,5 @@ public class InteractComponent : MonoBehaviour
 
         // Smoothly rotate towards the target rotation
         transform.rotation = Quaternion.Slerp(transform.rotation, holdOrigin.rotation, rotationSpeed * Time.fixedDeltaTime);
-
-
     }
 }
