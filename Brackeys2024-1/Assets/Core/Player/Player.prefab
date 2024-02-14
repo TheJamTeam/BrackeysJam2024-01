@@ -244,8 +244,8 @@ MonoBehaviour:
     m_RotationOrder: 4
   gravityStrength: 10
   rotationSpeed: 5
-  focusRadius: 0.1
-  focusRange: 1.2
+  focusRadius: 0.5
+  focusRange: 2
 --- !u!1 &7488077641275484621
 GameObject:
   m_ObjectHideFlags: 0
