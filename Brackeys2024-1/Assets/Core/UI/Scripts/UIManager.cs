@@ -31,11 +31,15 @@ public class UIManager : Singleton<UIManager> {
 	private Dictionary<string, Menu> menuTable = new Dictionary<string, Menu>();
 	private List<Menu> stack = new List<Menu>();
 	private Canvas canvas;
+	private PlayerInput input;
 
 	//----------------------------------------------------------------------------------------------------------
 
 	protected override void Awake() {
+		base.Awake();
+
 		canvas = GetComponent<Canvas>();
+		input = FindObjectOfType<PlayerInput>();
 
 		for(int i = 0; i < menus.Length; i++) {
 			if(menuTable.ContainsKey(menus[i].ID)) {
@@ -51,23 +55,11 @@ public class UIManager : Singleton<UIManager> {
 	//----------------------------------------------------------------------------------------------------------
 
 	private void Update() {
-		bool pausePress = false;
-		bool backPress = false;
-
-		if(Current.GetType() != typeof(HUD)) {
-			// TODO: pausePress = Input.Actions.UI.Pause.WasPressedThisFrame();
-		} else {
-			// TODO: pausePress = Input.Actions.Player.Pause.WasPressedThisFrame();
-		}
-
-		if(pausePress) {
+		if(input.uiInputModule.cancel.action.WasPressedThisFrame()) {
 			if(stack.Count > 1)
 				Back();
 			else if(Context.Exists)
-				Game.Instance.Pause(!Game.Instance.IsPaused);
-		} else if(backPress) {
-			if(stack.Count > 1)
-				Back();
+				Game.Instance.Pause(!Game.IsPaused);
 		}
 	}
 
