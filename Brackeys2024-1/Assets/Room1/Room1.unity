@@ -387,6 +387,8 @@ MonoBehaviour:
   videoList:
   - filename: Seong1.mp4
     isLooping: 0
+  - filename: Seong1a.mp4
+    isLooping: 0
   playInSequence: 1
   shouldLoopOnceFinishedAllVideos: 1
   volume: 1
@@ -512,7 +514,7 @@ VideoPlayer:
   - {fileID: 0}
   m_DirectAudioVolumes:
   - 1
-  m_Url: file://C:/Users/krise/Documents/Brackeys/BrackeysJam2024-01/Brackeys2024-1/Build/StreamingAssets/Seong1.mp4
+  m_Url: 
   m_EnabledAudioTracks: 01
   m_DirectAudioMutes: 00
   m_ControlledAudioTrackCount: 1
@@ -830,6 +832,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   videoList:
   - filename: Seong1.mp4
+    isLooping: 0
+  - filename: Seong1a.mp4
     isLooping: 0
   playInSequence: 1
   shouldLoopOnceFinishedAllVideos: 1
