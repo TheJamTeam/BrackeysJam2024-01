@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class InteractComponent : MonoBehaviour
 {
+    //The 
+    public string InteractID;
     [ReadOnly]
     public bool IsHeld = false;
     private Rigidbody _rigidbody;
