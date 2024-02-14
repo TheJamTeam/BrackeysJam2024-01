@@ -22,7 +22,7 @@ public class Context : Singleton<Context> {
 			roomScenes[scene.buildIndex - 1] = scene;
 		}
 
-		LoadSceneParameters parameters = new LoadSceneParameters(LoadSceneMode.Additive, LocalPhysicsMode.Physics3D);
+		LoadSceneParameters parameters = new LoadSceneParameters(LoadSceneMode.Additive);
 		for(int i = 0; i < roomScenes.Length; i++) {
 			if(!roomsLoaded[i]) {
 				roomScenes[i] = SceneManager.LoadScene(i + 1, parameters);
