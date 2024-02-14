@@ -67,9 +67,9 @@ public class PlayerInteractionComponent : MonoBehaviour
     //Physics Calculations go in Fixed Update
     void FixedUpdate()
     {
-        if (currentlyHoldingObject && currentlyHoldingObject.IsHeld)
+        if (currentlyHoldingObject)
         {
-            if (currentlyHoldingObject.IsHeld)
+            if (currentlyHoldingObject.IsHeldBy == this)
             {
                 currentlyHoldingObject.HoldUpdate(holdTransform, _rigidbody, gravityStrength, gravityDistanceCurve, rotationSpeed);
             }
@@ -113,11 +113,10 @@ public class PlayerInteractionComponent : MonoBehaviour
     {
         if (currentlyHoldingObject is not null)
         {
-            //TODO Use object on valid Focus
-            
-            //OR drop the item
-            currentlyHoldingObject.ToggleIsHeld(false);
-            currentlyHoldingObject = null;
+            if (currentlyHoldingObject.Interact(currentFocus))
+            {
+                currentlyHoldingObject = null;
+            }
         }
         else if(currentFocus)
         {
@@ -125,7 +124,7 @@ public class PlayerInteractionComponent : MonoBehaviour
             if (currentFocus.CanBePickedUp())
             {
                 currentlyHoldingObject = currentFocus;
-                currentlyHoldingObject.ToggleIsHeld(true);
+                currentlyHoldingObject.ToggleIsHeld(true, this);
             }
         }
     }
