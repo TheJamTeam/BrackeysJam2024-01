@@ -11,7 +11,9 @@ public class PlayerMovementComponent : MonoBehaviour
     [Header("Movement")]
     public float movementSpeed;
     private Vector3 _movementInput;
-    
+    private Vector3 velocity;
+    public Vector3 Velocity => velocity;
+
     [Header("Rotation")]
     public float rotationSensitivity;
     public float rotationDeadZone;
@@ -32,11 +34,14 @@ public class PlayerMovementComponent : MonoBehaviour
         InputManager.OnLookUpdated -= OnLookInput;
     }
 
-    void Update()
+    void FixedUpdate()
     {
+		if(Game.IsPaused) return;
+
         if (_movementInput != Vector3.zero)
         {
-            transform.Translate( Time.deltaTime * movementSpeed * _movementInput);
+            velocity = Time.deltaTime * movementSpeed * _movementInput;
+            transform.Translate( velocity);
         }
         
         //Horizontal Rotation
@@ -48,8 +53,6 @@ public class PlayerMovementComponent : MonoBehaviour
         _currentRotation.y += verticalRotationInput * rotationSensitivity;
         _currentRotation.y = Mathf.Clamp(_currentRotation.y, verticalRotationLimits.x, verticalRotationLimits.y);
         playerCamera.transform.localRotation = Quaternion.Euler(-_currentRotation.y, 0 , 0);
-        
-        
     }
 
     void OnMovementInput(Vector2 input)

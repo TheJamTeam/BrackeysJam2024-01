@@ -1,14 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Collections;
 using UnityEngine;
 
 public class InteractComponent : MonoBehaviour
 {
+    [ReadOnly]
+    public bool IsHeld = false;
+    private Rigidbody _rigidbody;
     
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
-        
+        _rigidbody = GetComponent<Rigidbody>();
     }
 
     public bool CanBePickedUp()
@@ -19,12 +23,23 @@ public class InteractComponent : MonoBehaviour
 
     public void ToggleIsHeld(bool toggle)
     {
-        //TODO Implement
+        IsHeld = toggle;
+        _rigidbody.useGravity = !toggle;
     }
 
-    public void HoldUpdate(Vector3 holdOrigin)
+    public void HoldUpdate(Transform holdOrigin, Rigidbody holdRigidbody, float gravityStrength, AnimationCurve gravityDistanceCurve, float rotationSpeed)
     {
-        transform.position = holdOrigin;
-        //Gravitate towards the held origin.
+        Vector3 directionToOrigin = holdOrigin.position - transform.position;
+        Vector3 relativeVelocity = holdRigidbody.GetComponent<PlayerMovementComponent>().Velocity - _rigidbody.velocity;
+
+        Vector3 movementStep = directionToOrigin.normalized * ((gravityStrength * gravityDistanceCurve.Evaluate(directionToOrigin.magnitude)) * directionToOrigin.magnitude);
+        
+        _rigidbody.velocity += movementStep + relativeVelocity;
+        
+
+        // Smoothly rotate towards the target rotation
+        transform.rotation = Quaternion.Slerp(transform.rotation, holdOrigin.rotation, rotationSpeed * Time.fixedDeltaTime);
+
+
     }
 }
