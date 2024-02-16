@@ -24,54 +24,69 @@ public class SocketComponent : MonoBehaviour
 
 
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter(Collider item)
     {
-        if (other.GetComponent<InteractComponent>() != null)
+        if (item.GetComponent<InteractComponent>() != null && socketedItem == null)
         {
-            string ID = other.GetComponent<InteractComponent>().InteractID;
+            SocketItem(item);
+        }
+    }
 
-            if (ID == null || ID == "") { ID = other.gameObject.name; }
+
+    public void OnTriggerExit(Collider item)
+    {
+        if (item.gameObject == socketedItem)
+        {
+            UnsocketItem(item);
+        }
+    }
 
 
-            if (canAcceptWrongItems || keyItems.Contains(ID))
+
+    public void SocketItem(Collider item)
+    {
+        string ID = item.GetComponent<InteractComponent>().InteractID;
+
+        if (ID == null || ID == "") { ID = item.gameObject.name; }
+
+
+        if (canAcceptWrongItems || keyItems.Contains(ID))
+        {
+            socketedItem = item.gameObject;
+            previousSocketedItem = socketedItem;
+            itemRB = socketedItem.GetComponent<Rigidbody>();
+
+            item.GetComponent<InteractComponent>().AddToSocket(this);
+
+            itemRB.useGravity = false;
+            //itemRB.isKinematic = true;
+            itemRB.velocity = Vector3.zero;
+            socketedItem.transform.position = transform.position;
+            socketedItem.transform.rotation = transform.rotation;
+
+            if (keyItems.Contains(ID))
             {
-                socketedItem = other.gameObject;
-                previousSocketedItem = socketedItem;
-                itemRB = socketedItem.GetComponent<Rigidbody>();
-
-                other.GetComponent<InteractComponent>().AddToSocket(this);
-
-                itemRB.useGravity = false;
-                itemRB.velocity = Vector3.zero;
-                socketedItem.transform.position = transform.position;
-                socketedItem.transform.rotation = transform.rotation;
-
-                if (keyItems.Contains(ID))
-                {
-                    OnSocketCompleted?.Invoke(socketID);
-                }
-                else
-                {
-                    OnSocketFilled?.Invoke(ID);
-                }
+                OnSocketCompleted?.Invoke(socketID);
+            }
+            else
+            {
+                OnSocketFilled?.Invoke(ID);
             }
         }
     }
 
 
-    public void OnTriggerExit(Collider other)
+    public void UnsocketItem(Collider item)
     {
-        if (other.gameObject == socketedItem)
-        {
-            itemRB.useGravity = true;
-            itemRB = null;
-            socketedItem = null;
+        /*InteractComponent[] interactables = FindObjectsOfType<InteractComponent>();
+        foreach (var interactable in interactables) { interactable.gameObject.GetComponent<Rigidbody>().useGravity = true; }
+        */
+        itemRB.useGravity = true;
+        itemRB = null;
+        socketedItem = null;
 
-            OnSocketEmptied?.Invoke(socketID);
-        }
+        OnSocketEmptied?.Invoke(socketID);
     }
-
-
 
 
     private void OnEnable()
