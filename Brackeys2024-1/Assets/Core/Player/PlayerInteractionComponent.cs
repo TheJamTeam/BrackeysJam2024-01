@@ -113,18 +113,19 @@ public class PlayerInteractionComponent : MonoBehaviour
     {
         if (currentlyHoldingObject is not null)
         {
-            if (currentlyHoldingObject.Interact(currentFocus))
+            //Current focus CAN be null here.
+            if (currentlyHoldingObject.TryUse(currentFocus) is not true)
             {
-                currentlyHoldingObject = null;
+                //TODO Discuss if we want a drop key, or to drop when an object failed to use (Used on nothing/Incompatible).
+                DropHeldObject();
             }
         }
         else if(currentFocus)
         {
             //Interact with the object.
-            if (currentFocus.CanBePickedUp())
+            if (currentFocus.PickedUpByPlayer(this))
             {
                 currentlyHoldingObject = currentFocus;
-                currentlyHoldingObject.ToggleIsHeld(true, this);
             }
         }
     }
@@ -132,5 +133,12 @@ public class PlayerInteractionComponent : MonoBehaviour
     protected void OnValidate()
     {
         holdTransform.localPosition = holdOffset;
+    }
+
+    public void DropHeldObject(bool isBeingDestroyed=false)
+    {
+        if(!isBeingDestroyed)
+            currentlyHoldingObject.DroppedByPlayer();
+        currentlyHoldingObject = null;
     }
 }

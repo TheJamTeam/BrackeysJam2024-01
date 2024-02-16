@@ -13,11 +13,38 @@ public struct CombinationKey
     [Tooltip("READ ONLY. Is set at runtime, default = false.")]
     public bool IsCombined;
 }
+
+[Serializable]
+public enum UseType
+{
+    CannotUse,
+    UseOnPickup,
+    UseWithoutFocus,
+    UseOnValidFocus,
+    TargetOfUsageOnly,
+}
+
+[Serializable]
+public enum UseConditions
+{
+    None,
+    DestroyOnUse,
+    OneTimeUse,
+}
 [RequireComponent(typeof(Rigidbody))]
 public class InteractComponent : MonoBehaviour
 {
-    public string InteractID => this.gameObject.name;
+    
+    public string InteractID => gameObject.name;
+    [SerializeField][Tooltip("Is always the GameObject name.")]
+    private string interactID;
+
+    [Header("Usage")]
+    public UseType useType;
+    public UseConditions useConditions = UseConditions.None;
+    public int useCount;
     private Rigidbody _rigidbody;
+    
     [Header("Holding")]
     public bool CanBeHeld;
     public PlayerInteractionComponent IsHeldBy;
@@ -28,8 +55,6 @@ public class InteractComponent : MonoBehaviour
     [Header("Usage")]
     [Tooltip("The InteractIDs that this object can be used on/Combined with.")]
     public List<CombinationKey> ValidCombinationKeys;
-    public bool CanBeUsedWithoutCombination;
-    public bool DestroyOnUse;
 
     //Called when an interactable is used (Self or on a target).
     //@Param string = this.InteractID
@@ -41,7 +66,12 @@ public class InteractComponent : MonoBehaviour
     //Called when all objects in ValidCombinations have been met
     //@Param string = this.InteractID
     public static event Action<string> OnInteractKeysComplete;
-    
+
+    private void OnValidate()
+    {
+        interactID = gameObject.name;
+    }
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -60,25 +90,49 @@ public class InteractComponent : MonoBehaviour
         // Smoothly rotate towards the target rotation
         transform.rotation = Quaternion.Slerp(transform.rotation, holdOrigin.rotation, rotationSpeed * Time.fixedDeltaTime);
     }
+    
 
-    public bool CanBePickedUp()
+    public bool PickedUpByPlayer(PlayerInteractionComponent isHeldBy=null)
     {
-        return CanBeHeld;
-    }
-
-    public void ToggleIsHeld(bool toggle, PlayerInteractionComponent isHeldBy=null)
-    {
+        
         if (IsSocketedBy)
         {
             RemoveFromSocket();
         }
+        else
+        {
+            if (useType is UseType.UseOnPickup)
+            {
+                TryUse();
+                return false;
+            }
+        }
+
+        
+        
+        if (!CanBeHeld)
+        {
+            return false;
+        }
+
+        //Successful Pickup
         IsHeldBy = isHeldBy;
-        _rigidbody.useGravity = !toggle;
+        _rigidbody.useGravity = false;
+        
+        return true;
+    }
+
+    public void DroppedByPlayer()
+    {
+        if (IsHeldBy)
+        {
+            _rigidbody.useGravity = true;
+            IsHeldBy = null;
+        }
     }
 
     public void AddToSocket(SocketComponent socket)
     {
-        ToggleIsHeld(false);
         IsSocketedBy = socket;
         _rigidbody.useGravity = false;
     }
@@ -86,43 +140,16 @@ public class InteractComponent : MonoBehaviour
     public void RemoveFromSocket()
     {
         IsSocketedBy = null;
+        _rigidbody.useGravity = true;
     }
     
-    public virtual bool Interact(InteractComponent focus)
-    {
-        if (focus)
-        {
-            //This item is trying to be used on another item
-            if (IsValidCombination(focus))
-            { 
-                Use(focus);
-            }
-        }
-        else
-        {
-            //This item is trying to be used on nothing
-            
-            if (CanBeUsedWithoutCombination)
-            {
-                Use(null);
-                return true;
-            }
-            else
-            {
-                //Drop Item
-                ToggleIsHeld(false);
-            }
-            return false;
-        }
-
-        return false;
-    }
-
     private bool IsValidCombination(InteractComponent otherComponent)
     {
         for (int i = 0; i < ValidCombinationKeys.Count; i++)
         {
-            if (ValidCombinationKeys[i].InteractID == otherComponent.InteractID)
+            
+            //Ignore case for typos
+            if (String.Equals(ValidCombinationKeys[i].InteractID, otherComponent.InteractID, StringComparison.OrdinalIgnoreCase))
             {
                 //Update Key
                 CombinationKey tempKey = ValidCombinationKeys[i];
@@ -135,35 +162,36 @@ public class InteractComponent : MonoBehaviour
         return false;
     }
 
-    public virtual bool Use(InteractComponent focusTarget=null)
-    {
-        (bool, bool) successAndDestroy = (false, true);
-        
-        if (focusTarget)
-        {
-            successAndDestroy = focusTarget.UsedOnThis(this);
-        }
-        else
-        {
-            successAndDestroy = (CanBeUsedWithoutCombination, DestroyOnUse);
-        }
-        
-        //Was usage successful?
-        if (successAndDestroy.Item1)
-        {
-            Debug.Log($"{InteractID} was used on {(focusTarget ? focusTarget.InteractID : "self")}{(successAndDestroy.Item2 ? ":Destroying" : "")}");
-            OnUse(successAndDestroy.Item2);
-        }
-
-        return (successAndDestroy.Item2);
-    }
-
-    public (bool, bool) UsedOnThis(InteractComponent componentBeingUsed)
+    public virtual bool TryUse(InteractComponent focusTarget=null)
     {
         bool success = false;
-        //TODO Implement, sometimes things won't want to be destroyed.
-        bool destroyOnSuccess = componentBeingUsed.DestroyOnUse;
-        success = IsValidCombination(componentBeingUsed);
+        
+        //Success if Use On Pickup, One-Time Use (First), or is a valid focus.
+        if (useType == UseType.UseOnPickup || useType == UseType.UseWithoutFocus || (useConditions is UseConditions.OneTimeUse && useCount is 0))
+        {
+            success = true;
+        }
+        else if (useType is UseType.UseOnValidFocus)
+        {
+            if (focusTarget)
+            {
+                success = focusTarget.UsedOnThis(this);
+            }
+        }
+
+        //Was usage successful?
+        if (success)
+        {
+            Debug.Log($"{InteractID} was used on {(focusTarget ? focusTarget.InteractID : "self")}.");
+            OnUse();
+        }
+
+        return success;
+    }
+
+    public bool UsedOnThis(InteractComponent componentBeingUsed)
+    {
+        bool success = IsValidCombination(componentBeingUsed);
         if (success)
         {
             OnValidInteractUsed?.Invoke(InteractID, componentBeingUsed.InteractID);
@@ -174,7 +202,7 @@ public class InteractComponent : MonoBehaviour
                 OnInteractKeysComplete?.Invoke(InteractID);
             }
         }
-        return (success, destroyOnSuccess);
+        return success;
     }
 
     private bool AreAllKeysCombined()
@@ -190,18 +218,23 @@ public class InteractComponent : MonoBehaviour
         return true;
     }
 
-    public virtual void OnUse(bool destroyOnUse)
+    public virtual void OnUse()
     {
         OnInteractUsed?.Invoke(InteractID);
 
         //Does it need to be destroyed?
-        if (destroyOnUse)
+        if (useConditions is UseConditions.DestroyOnUse)
         {
             if (IsHeldBy is not null)
             {
+                IsHeldBy.DropHeldObject(true);
                 IsHeldBy.currentlyHoldingObject = null;
             }
             Destroy(gameObject);
+        }
+        else
+        {
+            useCount++;
         }
     }
 }
