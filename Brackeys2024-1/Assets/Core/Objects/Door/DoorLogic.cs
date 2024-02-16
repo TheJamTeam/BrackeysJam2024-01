@@ -48,6 +48,7 @@ public class DoorLogic : MonoBehaviour
         //OpenDoor(); //Testing Purposes
         
         InteractComponent.OnInteractKeysComplete += OnDoorwayOpen;
+        InteractComponent.OnInteractUsed += OnDoorwayOpen;
         DoorEvents.CloseDoor += OnDoorwayClose;
     }
 
@@ -110,8 +111,6 @@ public class DoorLogic : MonoBehaviour
             yield return null;
             time += Time.deltaTime * speed;
         }
-
-        doorBody.isKinematic = false;
     }
     
     
@@ -137,8 +136,6 @@ public class DoorLogic : MonoBehaviour
         Quaternion startRotation = transform.rotation;
         Quaternion endRotation = Quaternion.Euler(_startRotationVector);
 
-        doorBody.isKinematic = true;
-        
         isOpen = false;
 
         float time = 0;
