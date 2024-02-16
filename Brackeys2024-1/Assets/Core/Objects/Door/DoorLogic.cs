@@ -25,7 +25,7 @@ public class DoorLogic : MonoBehaviour
     [Header("Event Configuration")]
     [SerializeField] [Tooltip("ID of the Game-object that will trigger the door open event. Case Insensitive")]
     private string triggeringInteractID;
-    [SerializeField] [Tooltip("ID of this Door, Relative to all other doors in the game")]
+    [SerializeField] [Tooltip("ID of this Door, Relative to all other doors in the game. Used for the Closing Event")]
     private int doorID;
 
     [Header("DoorPhysics")] 
@@ -45,7 +45,7 @@ public class DoorLogic : MonoBehaviour
         _startRotationVector = _localTransform.rotation.eulerAngles; 
         _forwardVector = _localTransform.right;
         
-        //OpenDoor(); //Testing Purposes
+        OpenDoor(); //Testing Purposes
         
         InteractComponent.OnInteractKeysComplete += OnDoorwayOpen;
         DoorEvents.CloseDoor += OnDoorwayClose;
