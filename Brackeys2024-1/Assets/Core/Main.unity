@@ -5453,7 +5453,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   text: {fileID: 1941772562}
   length: 21
-  min: 0
+  min: 0.00001
   max: 1
   step: 0.1
   value: 1
@@ -7157,7 +7157,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   text: {fileID: 204828845}
   length: 21
-  min: 0
+  min: 0.00001
   max: 1
   step: 0.1
   value: 1
@@ -8842,7 +8842,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   text: {fileID: 794021154}
   length: 21
-  min: 0
+  min: 0.00001
   max: 1
   step: 0.1
   value: 1
@@ -9362,9 +9362,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: options
   defaultSelectedElement: {fileID: 0}
-  masterVolumeSlider: {fileID: 1600376110}
-  sfxVolumeSlider: {fileID: 2113533231}
-  musicVolumeSlider: {fileID: 1132252903}
+  masterVolumeSlider: {fileID: 0}
+  sfxVolumeSlider: {fileID: 0}
+  musicVolumeSlider: {fileID: 0}
 --- !u!1 &7286386351546682091
 GameObject:
   m_ObjectHideFlags: 0
