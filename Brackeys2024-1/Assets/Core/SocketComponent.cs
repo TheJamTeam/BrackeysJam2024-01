@@ -12,8 +12,7 @@ using System;
 public class SocketComponent : MonoBehaviour
 {
     public string socketID;
-    public string keyItem;
-    public string altKeyItem;
+    public List<string> keyItems;
     public GameObject socketedItem;
     public bool canAcceptWrongItems;
     Rigidbody itemRB;
@@ -27,26 +26,34 @@ public class SocketComponent : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (canAcceptWrongItems || other.gameObject.name == keyItem || other.gameObject.name == altKeyItem)
+        if (other.GetComponent<InteractComponent>() != null)
         {
-            socketedItem = other.gameObject;
-            previousSocketedItem = socketedItem;
-            itemRB = socketedItem.GetComponent<Rigidbody>();
+            string ID = other.GetComponent<InteractComponent>().InteractID;
 
-            // Need to remove the item from the player's hands
+            if (ID == null || ID == "") { ID = other.gameObject.name; }
 
-            itemRB.useGravity = false;
-            itemRB.velocity = Vector3.zero;
-            socketedItem.transform.position = transform.position;
-            socketedItem.transform.rotation = transform.rotation;
 
-            if (other.gameObject.name == keyItem || other.gameObject.name == altKeyItem)
+            if (canAcceptWrongItems || keyItems.Contains(ID))
             {
-                OnSocketCompleted?.Invoke(socketID);
-            }
-            else
-            {
-                OnSocketFilled?.Invoke(socketedItem.name);
+                socketedItem = other.gameObject;
+                previousSocketedItem = socketedItem;
+                itemRB = socketedItem.GetComponent<Rigidbody>();
+
+                other.GetComponent<InteractComponent>().AddToSocket(this);
+
+                itemRB.useGravity = false;
+                itemRB.velocity = Vector3.zero;
+                socketedItem.transform.position = transform.position;
+                socketedItem.transform.rotation = transform.rotation;
+
+                if (keyItems.Contains(ID))
+                {
+                    OnSocketCompleted?.Invoke(socketID);
+                }
+                else
+                {
+                    OnSocketFilled?.Invoke(ID);
+                }
             }
         }
     }
@@ -89,12 +96,12 @@ public class SocketComponent : MonoBehaviour
 
     public void PrintCompleted(string socket)
     {
-        Debug.Log($"Socket Complete: {socket}");
+        Debug.Log($"{socket} Socket Complete!");
     }
 
     public void PrintEmptied(string socket)
     {
-        Debug.Log($"Unsocketed {socket}");
+        Debug.Log($"{socket} Unsocketed");
     }
 
 }
