@@ -45,7 +45,7 @@ public class DoorLogic : MonoBehaviour
         _startRotationVector = _localTransform.rotation.eulerAngles; 
         _forwardVector = _localTransform.right;
         
-        OpenDoor(); //Testing Purposes
+        //OpenDoor(); //Testing Purposes
         
         InteractComponent.OnInteractKeysComplete += OnDoorwayOpen;
         DoorEvents.CloseDoor += OnDoorwayClose;
