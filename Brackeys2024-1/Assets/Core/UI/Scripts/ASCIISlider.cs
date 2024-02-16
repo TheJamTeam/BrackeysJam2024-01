@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using TMPro;
 
 public class ASCIISlider : MonoBehaviour {
@@ -15,12 +16,17 @@ public class ASCIISlider : MonoBehaviour {
 	[SerializeField] private float step;
 	[SerializeField] private float value;
 
+	[Space]
+
+	public UnityEvent<float> OnValueChanged;
+
 	private void Start() {
 		SetValue(value);
 	}
 
 	public void SetValue(float value) {
-		this.value = Mathf.Clamp(value, min, max);
+		value = Mathf.Clamp(value, min, max);
+		this.value = value;
 
 		float t = Mathf.InverseLerp(min, max, value);
 		int n = Mathf.RoundToInt(t * length);
@@ -32,6 +38,8 @@ public class ASCIISlider : MonoBehaviour {
 		if(n < length) sb.Append('-', (length - n));
 
 		text.text = sb.ToString();
+
+		OnValueChanged?.Invoke(value);
 	}
 
 	public void Add() {
