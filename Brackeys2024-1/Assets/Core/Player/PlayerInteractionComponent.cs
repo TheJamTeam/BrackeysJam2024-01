@@ -69,8 +69,16 @@ public class PlayerInteractionComponent : MonoBehaviour
     {
         if (currentlyHoldingObject)
         {
-            currentlyHoldingObject.HoldUpdate(holdTransform, _rigidbody, gravityStrength, gravityDistanceCurve, rotationSpeed);
+            if (currentlyHoldingObject.IsHeldBy == this)
+            {
+                currentlyHoldingObject.HoldUpdate(holdTransform, _rigidbody, gravityStrength, gravityDistanceCurve, rotationSpeed);
+            }
+            else
+            {
+                currentlyHoldingObject = null;
+            }
         }
+        
     }
 
     //Raycasts from the origin and checks to see if any objects that can interacted with. Then chooses the primary target. Will always choose closest/First
@@ -105,11 +113,10 @@ public class PlayerInteractionComponent : MonoBehaviour
     {
         if (currentlyHoldingObject is not null)
         {
-            //TODO Use object on valid Focus
-            
-            //OR drop the item
-            currentlyHoldingObject.ToggleIsHeld(false);
-            currentlyHoldingObject = null;
+            if (currentlyHoldingObject.Interact(currentFocus))
+            {
+                currentlyHoldingObject = null;
+            }
         }
         else if(currentFocus)
         {
@@ -117,7 +124,7 @@ public class PlayerInteractionComponent : MonoBehaviour
             if (currentFocus.CanBePickedUp())
             {
                 currentlyHoldingObject = currentFocus;
-                currentlyHoldingObject.ToggleIsHeld(true);
+                currentlyHoldingObject.ToggleIsHeld(true, this);
             }
         }
     }

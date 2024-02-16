@@ -54,12 +54,10 @@ public class VideoComponent : MonoBehaviour
     private VideoPlayer _videoPlayer;
     private AudioSource _audioSource;
 
-    private void OnEnable()
+    void Start()
     {
-    }
-
-    private void OnDisable()
-    {
+        //TODO Hook up the game start @Jeremy!
+        OnStart();
     }
 
     // Start is called before the first frame update
@@ -171,6 +169,7 @@ public class VideoComponent : MonoBehaviour
         CancelInvoke(nameof(OnVideoFinished));
     }
 
+    //TODO Hook up to Game.cs pause. @jeremy!
     void OnGamePause(bool isPaused)
     {
         if (isPaused)
