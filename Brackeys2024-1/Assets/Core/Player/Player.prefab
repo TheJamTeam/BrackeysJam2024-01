@@ -219,7 +219,7 @@ MonoBehaviour:
   currentlyHoldingObject: {fileID: 0}
   currentFocus: {fileID: 0}
   holdTransform: {fileID: 1876863008912823907}
-  holdOffset: {x: 0, y: -0.2, z: 1.2}
+  holdOffset: {x: 0, y: -0.3, z: 0.8}
   gravityDistanceCurve:
     serializedVersion: 2
     m_Curve:
@@ -246,8 +246,8 @@ MonoBehaviour:
     m_RotationOrder: 4
   gravityStrength: 10
   rotationSpeed: 5
-  focusRadius: 0.5
-  focusRange: 2
+  focusRadius: 0.2
+  focusRange: 1.3
 --- !u!114 &8148289184848316059
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -310,7 +310,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7488077641275484621}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.2, z: 1.2}
+  m_LocalPosition: {x: 0, y: -0.3, z: 0.8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

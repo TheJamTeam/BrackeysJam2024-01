@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Collections;
+using Unity.VisualScripting.Antlr3.Runtime.Tree;
 using UnityEditor;
 using UnityEngine;
 
@@ -31,7 +32,7 @@ public enum UseConditions
     DestroyOnUse,
     OneTimeUse,
 }
-[RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(Rigidbody))][RequireComponent(typeof(AudioComponent))]
 public class InteractComponent : MonoBehaviour
 {
     private AudioComponent _audioComponent;
@@ -56,8 +57,10 @@ public class InteractComponent : MonoBehaviour
     
     [Header("Socketing")]
     public SocketComponent IsSocketedBy;
-    
-    [Header("Usage")]
+
+    [Header("Usage")] 
+    [Tooltip("Whether all keys are required to be considered complete.")]
+    public bool RequiresAllCombinationKeys;
     [Tooltip("The InteractIDs that this object can be used on/Combined with.")]
     public List<CombinationKey> ValidCombinationKeys;
 
@@ -217,7 +220,10 @@ public class InteractComponent : MonoBehaviour
         {
             if (!key.IsCombined)
             {
-                return false;
+                if (RequiresAllCombinationKeys)
+                {
+                    return false;
+                }
             }
         }
 
