@@ -42,7 +42,7 @@ public class AudioComponent : MonoBehaviour
             }
         }
         
-        Debug.LogError(string.Format("%s: Could not find sound: %s", gameObject.name,  soundName));
+        Debug.LogError($"{gameObject.name}: Could not find sound: {soundName}");
     }
 
     public void PlaySound(Sound soundToPlay)

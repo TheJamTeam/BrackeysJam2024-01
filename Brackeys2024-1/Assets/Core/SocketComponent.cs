@@ -41,6 +41,15 @@ public class SocketComponent : MonoBehaviour
         }
     }
 
+    void Update()
+    {
+        if (socketedItem)
+        {
+            socketedItem.transform.position = transform.position;
+            socketedItem.transform.rotation = transform.rotation;
+        }
+    }
+
 
 
     public void SocketItem(Collider item)
