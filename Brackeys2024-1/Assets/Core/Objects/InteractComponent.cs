@@ -56,8 +56,10 @@ public class InteractComponent : MonoBehaviour
     
     [Header("Socketing")]
     public SocketComponent IsSocketedBy;
-    
-    [Header("Usage")]
+
+    [Header("Usage")] 
+    [Tooltip("Whether all keys are required to be considered complete.")]
+    public bool RequiresAllCombinationKeys;
     [Tooltip("The InteractIDs that this object can be used on/Combined with.")]
     public List<CombinationKey> ValidCombinationKeys;
 

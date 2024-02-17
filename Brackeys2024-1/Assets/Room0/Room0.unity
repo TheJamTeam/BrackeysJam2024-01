@@ -814,11 +814,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: ExitDoor
       objectReference: {fileID: 0}
-    - target: {fileID: 6465401056749532065, guid: 54cfad1e1ced4a94cad317e430e376ac,
-        type: 3}
-      propertyPath: m_Layer
-      value: 3
-      objectReference: {fileID: 0}
     - target: {fileID: 6465401056749532066, guid: 54cfad1e1ced4a94cad317e430e376ac,
         type: 3}
       propertyPath: m_RootOrder
@@ -826,23 +821,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6465401056749532066, guid: 54cfad1e1ced4a94cad317e430e376ac,
         type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.7
-      objectReference: {fileID: 0}
-    - target: {fileID: 6465401056749532066, guid: 54cfad1e1ced4a94cad317e430e376ac,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.7
-      objectReference: {fileID: 0}
-    - target: {fileID: 6465401056749532066, guid: 54cfad1e1ced4a94cad317e430e376ac,
-        type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.7
-      objectReference: {fileID: 0}
-    - target: {fileID: 6465401056749532066, guid: 54cfad1e1ced4a94cad317e430e376ac,
-        type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.786
+      value: 0.838
       objectReference: {fileID: 0}
     - target: {fileID: 6465401056749532066, guid: 54cfad1e1ced4a94cad317e430e376ac,
         type: 3}
@@ -889,21 +869,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6465401056749532066, guid: 54cfad1e1ced4a94cad317e430e376ac,
-        type: 3}
-      propertyPath: m_ConstrainProportionsScale
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6465401056749532092, guid: 54cfad1e1ced4a94cad317e430e376ac,
-        type: 3}
-      propertyPath: speed
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 6465401056749532092, guid: 54cfad1e1ced4a94cad317e430e376ac,
-        type: 3}
-      propertyPath: doorID
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 6465401056749532092, guid: 54cfad1e1ced4a94cad317e430e376ac,
         type: 3}
       propertyPath: rotationAmount
@@ -914,14 +879,7 @@ PrefabInstance:
       propertyPath: triggeringInteractID
       value: ButtonPresser
       objectReference: {fileID: 0}
-    - target: {fileID: 6465401057325950133, guid: 54cfad1e1ced4a94cad317e430e376ac,
-        type: 3}
-      propertyPath: m_Layer
-      value: 3
-      objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 6465401056749532093, guid: 54cfad1e1ced4a94cad317e430e376ac, type: 3}
-    - {fileID: 6465401056749532094, guid: 54cfad1e1ced4a94cad317e430e376ac, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 54cfad1e1ced4a94cad317e430e376ac, type: 3}
 --- !u!1 &927816917
 GameObject:

@@ -6,12 +6,17 @@ public class EntranceTrigger : MonoBehaviour
 {
     bool roomEntered;
 
+    void Awake()
+    {
+        
+    }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.GetComponent<PlayerMovementComponent>() != null && roomEntered == false)
+        CreativityProgression progress = FindObjectOfType<CreativityProgression>();
+        if (other.GetComponent<PlayerMovementComponent>() != null && roomEntered == false && progress)
         {
             roomEntered = true;
-            FindObjectOfType<CreativityProgression>().RoomEntrance();
+            progress.RoomEntrance();
             Destroy(gameObject);
         }
     }
