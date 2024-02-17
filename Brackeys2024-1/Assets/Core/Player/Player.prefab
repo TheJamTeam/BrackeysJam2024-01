@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 2314304355585995207}
   - component: {fileID: 8148289184848316059}
   - component: {fileID: 7110209388728175923}
+  - component: {fileID: -2748107961603473134}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -286,6 +287,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timeBetweenFootsteps: 0.5
   timeVariation: {x: -0.13, y: 0.13}
+--- !u!114 &-2748107961603473134
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4376680770940566410}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce9db691a5c902046b758374f7b38bea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  puzzleDictionary:
+    items: []
 --- !u!1 &7488077641275484621
 GameObject:
   m_ObjectHideFlags: 0
