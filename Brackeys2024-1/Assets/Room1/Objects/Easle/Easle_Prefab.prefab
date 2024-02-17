@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 114233956577511374}
   m_Layer: 0
-  m_Name: EaslePrefab
+  m_Name: Easle_Prefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -58,14 +58,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 114233956814375047}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.323, z: 0}
+  m_LocalRotation: {x: -0, y: 0.7071062, z: -0, w: 0.7071074}
+  m_LocalPosition: {x: 0.177, y: 0.323, z: -0.045}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 114233956577511374}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!114 &114233956814375045
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -95,8 +95,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.43909246, y: 0.5637978, z: 0.15058541}
-  m_Center: {x: 0.1981856, y: 0.27151495, z: -0.04977791}
+  m_Size: {x: 0.14104666, y: 0.5637978, z: 0.3726344}
+  m_Center: {x: 0.049162626, y: 0.27151495, z: 0.011858244}
 --- !u!1001 &8067972845764490211
 PrefabInstance:
   m_ObjectHideFlags: 0

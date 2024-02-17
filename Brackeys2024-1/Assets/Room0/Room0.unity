@@ -877,7 +877,7 @@ PrefabInstance:
     - target: {fileID: 6465401056749532092, guid: 54cfad1e1ced4a94cad317e430e376ac,
         type: 3}
       propertyPath: triggeringInteractID
-      value: ButtonPresser
+      value: Strange Button
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 54cfad1e1ced4a94cad317e430e376ac, type: 3}
@@ -1981,10 +1981,20 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 8767591085814109545, guid: 9757d855d5356864dad2a4b184bcd41d,
+        type: 3}
+      propertyPath: m_Name
+      value: Strange Button
+      objectReference: {fileID: 0}
     - target: {fileID: 8767591085814109555, guid: 9757d855d5356864dad2a4b184bcd41d,
         type: 3}
       propertyPath: CanBeHeld
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8767591085814109555, guid: 9757d855d5356864dad2a4b184bcd41d,
+        type: 3}
+      propertyPath: interactID
+      value: Strange Button
       objectReference: {fileID: 0}
     - target: {fileID: 8767591085814109555, guid: 9757d855d5356864dad2a4b184bcd41d,
         type: 3}

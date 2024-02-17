@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1797006996942017764}
   - component: {fileID: 5210921617893316784}
   m_Layer: 0
-  m_Name: Easel
+  m_Name: EaselBase
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
