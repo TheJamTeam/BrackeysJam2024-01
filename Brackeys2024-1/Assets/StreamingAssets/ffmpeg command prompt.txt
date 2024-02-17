@@ -1,0 +1,23 @@
+(If you need to install ffmpeg, follow these links:)
+
+https://www.gyan.dev/ffmpeg/builds/
+
+https://phoenixnap.com/kb/ffmpeg-windows
+
+
+
+
+Run cmd from this folder and enter:
+
+ffmpeg -i INPUT_VIDEONAME.mp4 -c:v libvpx -qmin 0 -crf 0 -b:v 1M -c:a libvorbis OUTPUT_VIDEONAME.webm
+
+this runs ffmpeg with these parameters: input videoname.format -codec:video vp(8) -qualityMin 0 (lower = higher quality) constantRateFactor 0 (lower = higher quality) -bitrate:video 1mbit/s -codec:audio vorbis output.format (you can specify a subfolder if you want)
+
+
+
+
+Sources:
+https://video.stackexchange.com/questions/19590/convert-mp4-to-webm-without-quality-loss-with-ffmpeg
+
+https://trac.ffmpeg.org/wiki/Encode/VP8
+
