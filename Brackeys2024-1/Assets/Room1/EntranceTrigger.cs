@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class EntranceTrigger : MonoBehaviour
 {
-    bool roomEntered;
+    /*bool roomEntered;
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.GetComponent<PlayerMovementComponent>() != null && roomEntered == false)
         {
             roomEntered = true;
-            FindObjectOfType<CreativityProgression>().RoomEntrance();
+            FindObjectOfType<VideoManager>().RoomIntro();
             Destroy(gameObject);
         }
-    }
+    }*/
 }

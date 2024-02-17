@@ -51,8 +51,15 @@ public class VideoComponent : MonoBehaviour
     public bool playOnStart;
     
     private int currentVideoIndex;
+    private VideoManager _videoManager;
     private VideoPlayer _videoPlayer;
     private AudioSource _audioSource;
+
+    private void Awake()
+    {
+        _videoManager = FindObjectOfType<VideoManager>();
+    }
+
 
     void Start()
     {
@@ -168,7 +175,7 @@ public class VideoComponent : MonoBehaviour
         _videoPlayer.Stop();
         _videoPlayer.url = string.Empty;
         CancelInvoke(nameof(OnVideoFinished));
-        if (!interrupt) { FindObjectOfType<CreativityProgression>().FadeOut(); }
+        if (!interrupt) { _videoManager.FadeOut(); }
     }
 
     //TODO Hook up to Game.cs pause. @jeremy!
