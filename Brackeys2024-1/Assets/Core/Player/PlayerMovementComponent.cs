@@ -7,7 +7,7 @@ public class PlayerMovementComponent : MonoBehaviour
 {
     [Header("Components")]
     public Transform playerCamera;
-    
+
     [Header("Movement")]
     public float movementSpeed;
     private Vector3 _movementInput;
@@ -53,6 +53,11 @@ public class PlayerMovementComponent : MonoBehaviour
         _currentRotation.y += verticalRotationInput * rotationSensitivity;
         _currentRotation.y = Mathf.Clamp(_currentRotation.y, verticalRotationLimits.x, verticalRotationLimits.y);
         playerCamera.transform.localRotation = Quaternion.Euler(-_currentRotation.y, 0 , 0);
+    }
+
+    public bool IsMoving()
+    {
+        return _movementInput != Vector3.zero;
     }
 
     void OnMovementInput(Vector2 input)

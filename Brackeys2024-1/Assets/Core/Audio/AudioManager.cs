@@ -5,6 +5,7 @@ using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.Serialization;
+using Random = UnityEngine.Random;
 
 [Serializable]
 public struct Sound
@@ -25,18 +26,18 @@ public struct Sound
     {
         if (ReferenceEquals(null, obj)) return false;
         if (obj.GetType() != this.GetType()) return false;
-        return this.clip == ((Sound)obj).clip;
+        return this.clips == ((Sound)obj).clips;
     }
     
     public override int GetHashCode ()
     {
-        return this.clip.GetHashCode ();
+        return this.clips.GetHashCode ();
     }
 
     #endregion
     
     public string name;
-    public AudioClip clip;
+    [FormerlySerializedAs("clip")] public List<AudioClip> clips;
     public float volumePercent;
 }
 
@@ -108,7 +109,7 @@ public class AudioManager : Singleton<AudioManager>
         AudioSource source = gameObject.AddComponent<AudioSource>();
         source.outputAudioMixerGroup = sfxMix;
 
-        source.clip = soundToPlay.clip;
+        source.clip = soundToPlay.clips[Random.Range(0, soundToPlay.clips.Count)];
         source.volume = soundToPlay.volumePercent * sfxVolume;
         source.Play();
 
@@ -134,7 +135,7 @@ public class AudioManager : Singleton<AudioManager>
     
     public void PlayMusic(Sound musicToPlay)
     {
-        if (musicToPlay.clip is not null)
+        if (musicToPlay.clips is not null)
         {
             //Check if Muted
             if (masterMute || musicMute)
@@ -158,7 +159,7 @@ public class AudioManager : Singleton<AudioManager>
             
             //Update and play Track
             currentMusic = musicToPlay;
-            musicSource.clip = currentMusic.clip;
+            musicSource.clip = currentMusic.clips[Random.Range(0, currentMusic.clips.Count)];
             musicSource.volume = currentMusic.volumePercent * musicVolume;
         
             musicSource.loop = true;
