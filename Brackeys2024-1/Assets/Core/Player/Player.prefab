@@ -284,7 +284,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1e5151d0a2ec674594b339aea4fc9a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeBetweenFootsteps: 0.7
+  timeBetweenFootsteps: 0.5
+  timeVariation: {x: -0.13, y: 0.13}
 --- !u!1 &7488077641275484621
 GameObject:
   m_ObjectHideFlags: 0

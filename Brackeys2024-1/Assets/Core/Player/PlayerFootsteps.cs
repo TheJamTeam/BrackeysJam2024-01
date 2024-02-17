@@ -7,7 +7,9 @@ public class PlayerFootsteps : MonoBehaviour
     private PlayerMovementComponent _playerMovementComponent;
     private AudioComponent _playerAudioComponent;
     public float timeBetweenFootsteps;
+    public Vector2 timeVariation;
     private float _timeToNextFootstep;
+    private float _timeSinceLastFootstep;
     void Awake()
     {
         _playerMovementComponent = GetComponent<PlayerMovementComponent>();
@@ -22,15 +24,17 @@ public class PlayerFootsteps : MonoBehaviour
 
     void FootstepUpdate()
     {
+        _timeSinceLastFootstep += Time.deltaTime;
+        
         if (_playerMovementComponent.IsMoving())
         {
             if (_timeToNextFootstep > 0)
             {
                 _timeToNextFootstep -= Time.deltaTime;
             }
-            else
+            else if(_timeSinceLastFootstep > timeBetweenFootsteps + timeVariation.x)
             {
-                _timeToNextFootstep = timeBetweenFootsteps;
+                _timeToNextFootstep = timeBetweenFootsteps + Random.Range(timeVariation.x, timeVariation.y);
                 PlayFootstep();
             }
         }
@@ -42,6 +46,7 @@ public class PlayerFootsteps : MonoBehaviour
 
     void PlayFootstep()
     {
+        _timeSinceLastFootstep = 0f;
         _playerAudioComponent.PlaySound("Footstep");
     }
 }
