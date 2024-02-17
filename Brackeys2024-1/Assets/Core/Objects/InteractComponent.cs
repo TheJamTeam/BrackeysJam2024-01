@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Collections;
+using Unity.VisualScripting.Antlr3.Runtime.Tree;
 using UnityEditor;
 using UnityEngine;
 
@@ -219,7 +220,10 @@ public class InteractComponent : MonoBehaviour
         {
             if (!key.IsCombined)
             {
-                return false;
+                if (RequiresAllCombinationKeys)
+                {
+                    return false;
+                }
             }
         }
 

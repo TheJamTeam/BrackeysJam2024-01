@@ -7,7 +7,7 @@ namespace Core.Objects.Door
 {
     public class DoorLogic : MonoBehaviour
     {
-        private Transform _localTransform;
+        public Transform RotationOrigin;
         
         public bool isOpen = false;
         private AudioComponent _audioComponent;
@@ -46,9 +46,8 @@ namespace Core.Objects.Door
         /// </summary>
         private void OnEnable()
         {
-            _localTransform = transform; // Efficiency 
-            _startRotationVector = _localTransform.rotation.eulerAngles; 
-            _forwardVector = _localTransform.right;
+            _startRotationVector = RotationOrigin.rotation.eulerAngles; 
+            _forwardVector = RotationOrigin.right;
         
             _audioComponent = GetComponent<AudioComponent>();
         
@@ -105,7 +104,7 @@ namespace Core.Objects.Door
         /// <returns>null</returns>
         IEnumerator DoorRotationOpen()
         {
-            Quaternion startRotation = transform.rotation;
+            Quaternion startRotation = RotationOrigin.rotation;
             Quaternion endRotation;
         
             // Rotate in the positive Y direction
@@ -115,7 +114,7 @@ namespace Core.Objects.Door
             float time = 0;
             while (time < openDuration)
             {
-                transform.rotation = Quaternion.Slerp(startRotation, endRotation, time);
+                RotationOrigin.rotation = Quaternion.Slerp(startRotation, endRotation, time);
                 yield return null;
                 time += Time.deltaTime;
             }
@@ -143,7 +142,7 @@ namespace Core.Objects.Door
 
         IEnumerator DoorRotationClose(bool isFast)
         {
-            Quaternion startRotation = transform.rotation;
+            Quaternion startRotation = RotationOrigin.rotation;
             Quaternion endRotation = Quaternion.Euler(_startRotationVector);
 
             isOpen = false;
@@ -152,9 +151,9 @@ namespace Core.Objects.Door
             float closeDuration = isFast ? closeDurationFast : closeDurationSlow;
             while (time < closeDuration)
             {
-                transform.rotation = Quaternion.Slerp(startRotation, endRotation, time);
-                yield return null;
+                RotationOrigin.rotation = Quaternion.Slerp(startRotation, endRotation, time);
                 time += Time.deltaTime;
+                yield return null;
             }
         }
     
