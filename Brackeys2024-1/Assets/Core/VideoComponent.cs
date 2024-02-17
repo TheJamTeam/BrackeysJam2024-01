@@ -138,6 +138,7 @@ public class VideoComponent : MonoBehaviour
             if (!System.IO.File.Exists(_videoPlayer.url))
             {
                 Debug.LogWarning($"{gameObject.name}: Cannot play video. Cannot find file ({_videoPlayer.url})");
+                return;
             }
         }
         
