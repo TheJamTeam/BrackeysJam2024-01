@@ -47,7 +47,6 @@ public class InteractComponent : MonoBehaviour
     public int useCount;
     public string HoldingInteractAudioToPlay = "HoldingInteract";
     public string InteractAudioToPlay = "Interact";
-    private Rigidbody _rigidbody;
     public string InteractVerb;
     public string InteractWhileHoldingVerb;
     
