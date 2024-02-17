@@ -57,7 +57,7 @@ public class PlayerMovementComponent : MonoBehaviour
 
     public bool IsMoving()
     {
-        return _movementInput != Vector3.zero;
+        return !Game.IsPaused && _movementInput != Vector3.zero;
     }
 
     void OnMovementInput(Vector2 input)
