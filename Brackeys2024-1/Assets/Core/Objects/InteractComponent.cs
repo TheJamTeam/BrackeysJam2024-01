@@ -44,6 +44,8 @@ public class InteractComponent : MonoBehaviour
     public UseConditions useConditions = UseConditions.None;
     public int useCount;
     private Rigidbody _rigidbody;
+    public string InteractVerb;
+    public string InteractWhileHoldingVerb;
     
     [Header("Holding")]
     public bool CanBeHeld;
