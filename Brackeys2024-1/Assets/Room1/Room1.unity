@@ -1183,13 +1183,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   videoList:
-  - filename: Studio2.mp4
+  - filename: Studio.webm
     isLooping: 0
-  - filename: Proudfoot.mp4
+  - filename: Proudfoot.webm
     isLooping: 0
-  - filename: Overthinking2.mp4
+  - filename: Overthinking.webm
     isLooping: 0
-  - filename: Unsustainable2.mp4
+  - filename: Unsustainable.webm
     isLooping: 0
   playInSequence: 0
   shouldLoopOnceFinishedAllVideos: 0
