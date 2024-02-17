@@ -31,7 +31,7 @@ public enum UseConditions
     DestroyOnUse,
     OneTimeUse,
 }
-[RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(Rigidbody))][RequireComponent(typeof(AudioComponent))]
 public class InteractComponent : MonoBehaviour
 {
     private AudioComponent _audioComponent;

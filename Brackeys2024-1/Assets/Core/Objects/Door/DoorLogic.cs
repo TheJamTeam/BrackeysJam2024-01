@@ -7,7 +7,7 @@ using UnityEngine.Serialization;
 
 public class DoorLogic : MonoBehaviour
 {
-    private Transform _localTransform;
+    public Transform RotationOrigin;
     private AudioComponent _audioComponent;
     
     public bool isOpen = false;
@@ -44,9 +44,8 @@ public class DoorLogic : MonoBehaviour
     /// </summary>
     private void OnEnable()
     {
-        _localTransform = transform; // Efficiency 
-        _startRotationVector = _localTransform.rotation.eulerAngles; 
-        _forwardVector = _localTransform.right;
+        _startRotationVector = RotationOrigin.rotation.eulerAngles; 
+        _forwardVector = RotationOrigin.right;
         
         _audioComponent = GetComponent<AudioComponent>();
         
