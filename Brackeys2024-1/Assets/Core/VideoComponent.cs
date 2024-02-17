@@ -106,18 +106,18 @@ public class VideoComponent : MonoBehaviour
                 }
                 else
                 {
-                    StopVideo();
+                    StopVideo(false);
                 }
             }
         }
         else
         {
-            StopVideo();
+            StopVideo(false);
         }
         
     }
     
-    void PlayVideo(int videoIndex)
+    public void PlayVideo(int videoIndex)
     {
         if (videoIndex < 0 || videoIndex >= videoList.Count)
         {
@@ -138,6 +138,7 @@ public class VideoComponent : MonoBehaviour
             if (!System.IO.File.Exists(_videoPlayer.url))
             {
                 Debug.LogWarning($"{gameObject.name}: Cannot play video. Cannot find file ({_videoPlayer.url})");
+                return;
             }
         }
         
@@ -162,11 +163,12 @@ public class VideoComponent : MonoBehaviour
         }
     }
 
-    void StopVideo()
+    public void StopVideo(bool interrupt)
     {
         _videoPlayer.Stop();
         _videoPlayer.url = string.Empty;
         CancelInvoke(nameof(OnVideoFinished));
+        if (!interrupt) { FindObjectOfType<CreativityProgression>().FadeOut(); }
     }
 
     //TODO Hook up to Game.cs pause. @jeremy!
