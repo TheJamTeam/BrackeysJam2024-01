@@ -8,11 +8,12 @@ using UnityEngine.Serialization;
 public class DoorLogic : MonoBehaviour
 {
     private Transform _localTransform;
-
-
+    private AudioComponent _audioComponent;
     
     public bool isOpen = false;
-    [SerializeField] private float speed = 0.5f;
+    [SerializeField] private float openDuration = 1.5f;
+    [SerializeField] private float closeDurationSlow = 1.2f;
+    [SerializeField] private float closeDurationFast = 0.5f;
 
     [Header("Rotation Configuration")]
     [SerializeField] private float rotationAmount = 45f;
@@ -28,8 +29,10 @@ public class DoorLogic : MonoBehaviour
     [SerializeField] [Tooltip("ID of this Door, Relative to all other doors in the game. Used for the Closing Event")]
     private int doorID;
 
-    [Header("DoorPhysics")] 
-    [SerializeField] private Rigidbody doorBody;
+    [Header("Audio Configuration")] 
+    public string openAudioToPlay = "Open";
+    public string closeSoftAudioToPlay = "CloseSoft";
+    public string closeSlamAudioToPlay = "CloseSlam";
 
     public string TriggeringInteractID
     {
@@ -45,7 +48,7 @@ public class DoorLogic : MonoBehaviour
         _startRotationVector = _localTransform.rotation.eulerAngles; 
         _forwardVector = _localTransform.right;
         
-        //OpenDoor(); //Testing Purposes
+        _audioComponent = GetComponent<AudioComponent>();
         
         InteractComponent.OnInteractKeysComplete += OnDoorwayOpen;
         InteractComponent.OnInteractUsed += OnDoorwayOpen;
@@ -87,6 +90,8 @@ public class DoorLogic : MonoBehaviour
         {
             StopCoroutine(_doorAnimationCoRoutine);
         }
+        
+        _audioComponent.PlaySound(openAudioToPlay);
             
         _doorAnimationCoRoutine = StartCoroutine(DoorRotationOpen());
     }
@@ -105,11 +110,11 @@ public class DoorLogic : MonoBehaviour
         
         isOpen = true;
         float time = 0;
-        while (time < 1)
+        while (time < openDuration)
         {
             transform.rotation = Quaternion.Slerp(startRotation, endRotation, time);
             yield return null;
-            time += Time.deltaTime * speed;
+            time += Time.deltaTime;
         }
     }
     
@@ -118,7 +123,7 @@ public class DoorLogic : MonoBehaviour
     /// <summary>
     /// Call this method to close the door (Requires Object Reference - Non static)
     /// </summary>
-    private void Close()
+    private void Close(bool isFast=false)
     {
         if (isOpen)
         {
@@ -126,12 +131,14 @@ public class DoorLogic : MonoBehaviour
             {
                 StopCoroutine(_doorAnimationCoRoutine);
             }
+            
+            _audioComponent.PlaySound(isFast ? closeSlamAudioToPlay : closeSoftAudioToPlay);
 
-            _doorAnimationCoRoutine = StartCoroutine(DoorRotationClose());
+            _doorAnimationCoRoutine = StartCoroutine(DoorRotationClose(isFast));
         }
     }
 
-    IEnumerator DoorRotationClose()
+    IEnumerator DoorRotationClose(bool isFast)
     {
         Quaternion startRotation = transform.rotation;
         Quaternion endRotation = Quaternion.Euler(_startRotationVector);
@@ -139,11 +146,12 @@ public class DoorLogic : MonoBehaviour
         isOpen = false;
 
         float time = 0;
-        while (time < 1)
+        float closeDuration = isFast ? closeDurationFast : closeDurationSlow;
+        while (time < closeDuration)
         {
             transform.rotation = Quaternion.Slerp(startRotation, endRotation, time);
             yield return null;
-            time += Time.deltaTime * speed;
+            time += Time.deltaTime;
         }
     }
     
