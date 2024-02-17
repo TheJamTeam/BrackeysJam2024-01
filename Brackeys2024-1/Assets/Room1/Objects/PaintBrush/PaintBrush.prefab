@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 3483115080058527319}
   - component: {fileID: 3483115080058527312}
   - component: {fileID: 3483115080058527307}
+  - component: {fileID: 4201042247325147778}
   m_Layer: 0
   m_Name: PaintBrush
   m_TagString: Untagged
@@ -131,6 +132,8 @@ MonoBehaviour:
   useType: 3
   useConditions: 0
   useCount: 0
+  HoldingInteractAudioToPlay: HoldingInteract
+  InteractAudioToPlay: Interact
   CanBeHeld: 1
   IsHeldBy: {fileID: 0}
   IsSocketedBy: {fileID: 0}
@@ -139,3 +142,23 @@ MonoBehaviour:
     IsCombined: 0
   - InteractID: Canvas
     IsCombined: 0
+--- !u!114 &4201042247325147778
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3483115080058527313}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb0acee71b96b1d4e838f8cc686d9192, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sounds:
+  - name: HoldingInteract
+    clips:
+    - {fileID: 8300000, guid: 00fab2c0c2eca3842a4eb22e39bd4eab, type: 3}
+    volumePercent: 1
+  - name: Interact
+    clips: []
+    volumePercent: 1

@@ -34,6 +34,8 @@ public enum UseConditions
 [RequireComponent(typeof(Rigidbody))]
 public class InteractComponent : MonoBehaviour
 {
+    private AudioComponent _audioComponent;
+    private Rigidbody _rigidbody;
     
     public string InteractID => gameObject.name;
     [SerializeField][Tooltip("Is always the GameObject name.")]
@@ -43,7 +45,8 @@ public class InteractComponent : MonoBehaviour
     public UseType useType;
     public UseConditions useConditions = UseConditions.None;
     public int useCount;
-    private Rigidbody _rigidbody;
+    public string HoldingInteractAudioToPlay = "HoldingInteract";
+    public string InteractAudioToPlay = "Interact";
     public string InteractVerb;
     public string InteractWhileHoldingVerb;
     
@@ -78,6 +81,7 @@ public class InteractComponent : MonoBehaviour
     void Awake()
     {
         _rigidbody = GetComponent<Rigidbody>();
+        _audioComponent = GetComponent<AudioComponent>();
     }
     
     public void HoldUpdate(Transform holdOrigin, Rigidbody holdRigidbody, float gravityStrength, AnimationCurve gravityDistanceCurve, float rotationSpeed)
@@ -223,7 +227,9 @@ public class InteractComponent : MonoBehaviour
     public virtual void OnUse()
     {
         OnInteractUsed?.Invoke(InteractID);
+        _audioComponent.PlaySound(IsHeldBy ? HoldingInteractAudioToPlay : InteractAudioToPlay);
 
+        
         //Does it need to be destroyed?
         if (useConditions is UseConditions.DestroyOnUse)
         {

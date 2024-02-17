@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4376680769538627421}
   - component: {fileID: 4376680769538627420}
   - component: {fileID: 4376680769538627423}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Main Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
@@ -44,8 +44,8 @@ Camera:
   m_GameObject: {fileID: 4376680769538627411}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_ClearFlags: 2
+  m_BackGroundColor: {r: 0.09433961, g: 0.09433961, b: 0.09433961, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -63,10 +63,10 @@ Camera:
   field of view: 86
   orthographic: 0
   orthographic size: 5
-  m_Depth: -1
+  m_Depth: 1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 2147483647
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -132,7 +132,9 @@ GameObject:
   - component: {fileID: 4376680770940566452}
   - component: {fileID: 4376680770940566454}
   - component: {fileID: 2314304355585995207}
-  m_Layer: 0
+  - component: {fileID: 8148289184848316059}
+  - component: {fileID: 7110209388728175923}
+  m_Layer: 6
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -246,6 +248,44 @@ MonoBehaviour:
   rotationSpeed: 5
   focusRadius: 0.5
   focusRange: 2
+--- !u!114 &8148289184848316059
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4376680770940566410}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb0acee71b96b1d4e838f8cc686d9192, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sounds:
+  - name: Footstep
+    clips:
+    - {fileID: 8300000, guid: 9defa165c26559043882d7f8dc37087d, type: 3}
+    - {fileID: 8300000, guid: 2a22fe90aec80d44ba9403be9ea47f24, type: 3}
+    - {fileID: 8300000, guid: 319f22e99418ceb409f2f10b8d2c9459, type: 3}
+    - {fileID: 8300000, guid: 49b0faa7f3c81884c9c599393f668f29, type: 3}
+    - {fileID: 8300000, guid: bfe310a1e13d8bd41a9432ece8b996d4, type: 3}
+    - {fileID: 8300000, guid: 024d9d2fc7f3c7547b9418135b8a8192, type: 3}
+    - {fileID: 8300000, guid: e5da9bc9716f9d1488230b95581aa4b0, type: 3}
+    - {fileID: 8300000, guid: d507e929604da364689d2dfa6ab3524e, type: 3}
+    volumePercent: 1
+--- !u!114 &7110209388728175923
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4376680770940566410}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1e5151d0a2ec674594b339aea4fc9a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeBetweenFootsteps: 0.5
+  timeVariation: {x: -0.13, y: 0.13}
 --- !u!1 &7488077641275484621
 GameObject:
   m_ObjectHideFlags: 0
@@ -255,7 +295,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1876863008912823907}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: HoldOrigin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
