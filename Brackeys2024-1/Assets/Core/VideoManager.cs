@@ -61,14 +61,14 @@ namespace CustomScripts.Core
                     if (hintTimer == null) { hintTimer = StartCoroutine(HintTimer(roomTwoHintTimer)); }
                     break;
                 case 3:
-                    billboardEnabled = true;
+                    billboardEnabled = false;
                     PlayVideo(8);
                     if (hintTimer == null) { hintTimer = StartCoroutine(HintTimer(roomThreeHintTimer)); }
                     break;
                 default:
                     break;
             }
-        }
+    }
 
 
         IEnumerator HintTimer(float introLength)
@@ -93,7 +93,7 @@ namespace CustomScripts.Core
                 
                     break;
                 case 2:
-                    billboardEnabled = false;
+                    billboardEnabled = true;
                     PlayVideo(5);
                     break;
                 case 3:
@@ -119,7 +119,7 @@ namespace CustomScripts.Core
                     break;
                 case 2:
                     if (hintTimer != null) { hintTimer = null; StopCoroutine(HintTimer(roomTwoHintTimer)); }
-                    billboardEnabled = false;
+                    billboardEnabled = true;
                     PlayVideo(6);
                     break;
                 case 3:
@@ -237,7 +237,7 @@ namespace CustomScripts.Core
                     secretPuzzleTrigger = "Proudfoot's Painting";
                     break;
                 case 2:
-                    neutralPuzzleTrigger = "Weight";
+                    neutralPuzzleTrigger = "FloorWeight";
                     secretPuzzleTrigger = "Ornate Book";
                     break;
                 case 3:
