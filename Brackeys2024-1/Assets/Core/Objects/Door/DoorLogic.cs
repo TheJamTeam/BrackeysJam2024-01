@@ -46,15 +46,16 @@ namespace Core.Objects.Door
         /// </summary>
         private void OnEnable()
         {
+            
             _startRotationVector = RotationOrigin.rotation.eulerAngles; 
             _forwardVector = RotationOrigin.right;
         
             _audioComponent = GetComponent<AudioComponent>();
-        
+            
             InteractComponent.OnInteractKeysComplete += OnDoorwayOpen;
             InteractComponent.OnInteractUsed += OnDoorwayOpen;
             DoorEvents.CloseDoor += OnDoorwayClose;
-            RoomTrigger.OnExit += OnDoorwayClose;
+            RoomTrigger.OnFirstEnter += OnDoorwayClose; // On first entry to room close any door with the ID of the room
         }
 
         /// <summary>
@@ -74,10 +75,12 @@ namespace Core.Objects.Door
         /// 
         /// </summary>
         /// <param name="doorToCloseID">The ID of the door to close, Relative to all doors in game</param>
+        /// <param name="isFast">Close the door fast, Default Value false</param>
         void OnDoorwayClose(int doorToCloseID)
         {
-            if (doorToCloseID == doorID)
+            if (doorToCloseID == doorID && isOpen)
             {
+                Debug.Log(String.Format("Closing door {0}", doorToCloseID));
                 Close();
             }
         }
