@@ -20,8 +20,6 @@ public class MagicPath : MonoBehaviour
     void Awake()
     {
         GeneratePath();
-        MeshCollider collider = _plane.GetComponent<MeshCollider>();
-        collider.sharedMesh = _plane.mesh;
         GenerateObjects();
     }
 
