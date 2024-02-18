@@ -12,7 +12,7 @@ namespace Core.Objects.Triggers
         public static event Action<int> OnExit;
 
         private int _visitCount;
-        [Range(1,3)]
+        [Range(0,4)]
         [SerializeField] private byte roomNumber;
 
         private void OnTriggerEnter(Collider other)
