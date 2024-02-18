@@ -29,7 +29,7 @@ namespace Core.Player
     {
         [NotNull] private List<Puzzle> _completedPuzzles;
         
-        [Range(1,3)]
+        [Range(0,4)]
         private byte _currentRoom;
 
         private Dictionary<byte, int> _roomVisitCounts;
