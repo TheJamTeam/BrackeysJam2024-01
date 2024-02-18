@@ -59,7 +59,7 @@ namespace Core.Player
             _puzzles = puzzleDictionary.ToDictionary();
             
             _roomVisitCounts = new Dictionary<byte, int>();
-            for (byte i = 1; i <= 3; i++)
+            for (byte i = 0; i <= 4; i++)
             {
                 _roomVisitCounts.Add(i, 0);
             }
