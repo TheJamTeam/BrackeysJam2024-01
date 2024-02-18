@@ -67,7 +67,7 @@ public class PlayerMovementComponent : MonoBehaviour
 
     void OnLookInput(Vector2 inputDelta)
     {
-        horizontalRotationInput = Mathf.Abs(inputDelta.x) >= rotationDeadZone ? inputDelta.x : 0;
-        verticalRotationInput = Mathf.Abs(inputDelta.y) >= rotationDeadZone ? inputDelta.y : 0;
+        horizontalRotationInput = inputDelta.x;
+        verticalRotationInput = inputDelta.y;
     }
 }
