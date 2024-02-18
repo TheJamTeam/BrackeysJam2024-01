@@ -1,27 +1,43 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Core.Objects.Triggers;
+using UnityEngine.UI;
 
 public class VideoManager : MonoBehaviour
 {
     public Transform greenScreen;
     public List<Transform> positions;
-    public int currentVideoPosition;
     VideoComponent videoComponent;
+    
     Material greenScreenMaterial;
     float lerpValue;
     float fadeInValue;
     float fadeOutValue;
-    private Coroutine hintTimer;
+    
     private int activeRoom;
+    string neutralPuzzleTrigger;
+    string secretPuzzleTrigger;
+
+    private Coroutine hintTimer;
+    float roomOneHintTimer = 19f;
+    float roomTwoHintTimer = 20f;
+    float roomThreeHintTimer = 17f;
+
+    Billboard billboardComponent;
+    bool billboardEnabled;
+
+    Animator fadeToWhite;
 
 
     private void Awake()
     {
+        greenScreen = transform;
         videoComponent = GetComponent<VideoComponent>();
+        billboardComponent = GetComponent<Billboard>();
         greenScreenMaterial = greenScreen.GetComponent<Renderer>().material;
-        currentVideoPosition = 0;
+        fadeToWhite = GameObject.FindWithTag("Ending").GetComponent<Animator>();
     }
 
 
@@ -32,16 +48,19 @@ public class VideoManager : MonoBehaviour
         switch (roomNumber)
         {
             case 1:
+                billboardEnabled = true;
                 PlayVideo(0);
-                if (hintTimer == null) { hintTimer = StartCoroutine(HintTimer(19)); }
+                if (hintTimer == null) { hintTimer = StartCoroutine(HintTimer(roomOneHintTimer)); }
                 break;
             case 2:
+                billboardEnabled = true;
                 PlayVideo(4);
-                if (hintTimer == null) { hintTimer = StartCoroutine(HintTimer(20)); }
+                if (hintTimer == null) { hintTimer = StartCoroutine(HintTimer(roomTwoHintTimer)); }
                 break;
             case 3:
+                billboardEnabled = true;
                 PlayVideo(8);
-                if (hintTimer == null) { hintTimer = StartCoroutine(HintTimer(15)); }
+                if (hintTimer == null) { hintTimer = StartCoroutine(HintTimer(roomThreeHintTimer)); }
                 break;
             default:
                 break;
@@ -52,8 +71,9 @@ public class VideoManager : MonoBehaviour
     IEnumerator HintTimer(float introLength)
     {
         yield return new WaitForSeconds(introLength);
-        Debug.Log("Hint Timer Finished.");
-        PuzzleHint(activeRoom);
+        //Debug.Log("Hint Timer Finished.");
+        if (hintTimer != null) { PuzzleHint(activeRoom); }
+        else { Debug.Log("Hint Cancelled. Room or Secret were completed."); }
     }
 
 
@@ -65,12 +85,16 @@ public class VideoManager : MonoBehaviour
         switch (roomNumber)
         {
             case 1:
+                billboardEnabled = false;
                 PlayVideo(1);
+                
                 break;
             case 2:
+                billboardEnabled = false;
                 PlayVideo(5);
                 break;
             case 3:
+                billboardEnabled = false;
                 PlayVideo(9);
                 break;
             default:
@@ -81,15 +105,23 @@ public class VideoManager : MonoBehaviour
 
     public void RoomComplete()
     {
+        // Need to stop the hint timers if they're currently ticking down, since hint's no longer needed, and could otherwise iterrupt the room completion.
+
         switch (activeRoom)
         {
             case 1:
+                if (hintTimer != null) { hintTimer = null; StopCoroutine(HintTimer(roomOneHintTimer)); }
+                billboardEnabled = true;
                 PlayVideo(2);
                 break;
             case 2:
+                if (hintTimer != null) { hintTimer = null; StopCoroutine(HintTimer(roomTwoHintTimer)); }
+                billboardEnabled = false;
                 PlayVideo(6);
                 break;
             case 3:
+                if (hintTimer != null) { hintTimer = null; StopCoroutine(HintTimer(roomThreeHintTimer)); }
+                billboardEnabled = true;
                 PlayVideo(10);
                 break;
             default:
@@ -100,15 +132,23 @@ public class VideoManager : MonoBehaviour
 
     public void SecretComplete()
     {
+        // Need to stop the hint timers if they're currently ticking down, since hint's no longer needed, and could otherwise iterrupt the secret.
+
         switch (activeRoom)
         {
             case 1:
+                if (hintTimer != null) { hintTimer = null; StopCoroutine(HintTimer(roomOneHintTimer)); }
+                billboardEnabled = true;
                 PlayVideo(3);
                 break;
             case 2:
+                if (hintTimer != null) { hintTimer = null; StopCoroutine(HintTimer(roomTwoHintTimer)); }
+                billboardEnabled = true;
                 PlayVideo(7);
                 break;
             case 3:
+                if (hintTimer != null) { hintTimer = null; StopCoroutine(HintTimer(roomThreeHintTimer)); }
+                billboardEnabled = true;
                 PlayVideo(11);
                 StartCoroutine(FinalVideo());
                 break;
@@ -121,9 +161,10 @@ public class VideoManager : MonoBehaviour
     IEnumerator FinalVideo()
     {
         yield return new WaitForSeconds(20);
+        billboardEnabled = true;
         PlayVideo(12);
-        /*yield return new WaitForSeconds(25);
-        // Teleport to the ending screen? Return to the main menu?*/
+        yield return new WaitForSeconds(25);
+        EndGame();
     }
 
 
@@ -168,6 +209,7 @@ public class VideoManager : MonoBehaviour
         if (index < positions.Count)
         {
             InterruptVideo();
+            billboardComponent.enabled = billboardEnabled;
             greenScreen.position = positions[index].position;
             greenScreen.rotation = positions[index].rotation;
             videoComponent.PlayVideo(index);
@@ -182,13 +224,55 @@ public class VideoManager : MonoBehaviour
     }
 
 
-    
+
+    public void CompletionCheck(string interactID)
+    {
+        switch (activeRoom)
+        {
+            case 1:
+                neutralPuzzleTrigger = "Blank Canvas";
+                secretPuzzleTrigger = "Proudfoot's Painting";
+                break;
+            case 2:
+                neutralPuzzleTrigger = "Weight";
+                secretPuzzleTrigger = "Ornate Book";
+                break;
+            case 3:
+                neutralPuzzleTrigger = "Chocolates";
+                secretPuzzleTrigger = "Thoughtful Gift";
+                break;
+            default:
+                break;
+        }
+
+        // Are the two IDs equal, ignoring case (incase of typo)
+        if (String.Equals(interactID, neutralPuzzleTrigger, StringComparison.OrdinalIgnoreCase))
+        {
+            RoomComplete();
+        }
+        else if (String.Equals(interactID, secretPuzzleTrigger, StringComparison.OrdinalIgnoreCase))
+        {
+            SecretComplete();
+        }
+    }
+
+
+
+    void EndGame()
+    {
+        fadeToWhite.Play("FadeToMenu");
+    }
+
+
+
 
 
     private void OnEnable()
     {
         RoomTrigger.OnFirstEnter += RoomIntro;
         RoomTrigger.OnEnter += PuzzleHint;
+        InteractComponent.OnInteractKeysComplete += CompletionCheck;
+        InteractComponent.OnInteractUsed += CompletionCheck;
     }
 
 
@@ -196,36 +280,7 @@ public class VideoManager : MonoBehaviour
     {
         RoomTrigger.OnFirstEnter -= RoomIntro;
         RoomTrigger.OnEnter -= PuzzleHint;
+        InteractComponent.OnInteractKeysComplete -= CompletionCheck;
+        InteractComponent.OnInteractUsed -= CompletionCheck;
     }
-
-
-
-
-
-
-
-
-    /*private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            PlayVideo(0);
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            PlayVideo(1);
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            PlayVideo(2);
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha4))
-        {
-            PlayVideo(3);
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha4))
-        {
-            PlayVideo(4);
-        }
-    }*/
 }

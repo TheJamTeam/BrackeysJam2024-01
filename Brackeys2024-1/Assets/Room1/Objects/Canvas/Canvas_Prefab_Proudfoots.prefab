@@ -99,3 +99,30 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 03246f38f8972b94cb8e9657af86fc23, type: 3}
+--- !u!1 &4978061946004470355 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3355011244194369303, guid: 03246f38f8972b94cb8e9657af86fc23,
+    type: 3}
+  m_PrefabInstance: {fileID: 7753725231991747908}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &6973596585046434576
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4978061946004470355}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ba15d3a249314949ab29f53b2d3730c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerID: Proudfoot's Painting
+  paintedMat: {fileID: 2100000, guid: 4734ef78f4ad3024eab8c907f3b2eb26, type: 2}
+  rdr: {fileID: 8175276157572432824}
+--- !u!23 &8175276157572432824 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 1940680206751282940, guid: 03246f38f8972b94cb8e9657af86fc23,
+    type: 3}
+  m_PrefabInstance: {fileID: 7753725231991747908}
+  m_PrefabAsset: {fileID: 0}
