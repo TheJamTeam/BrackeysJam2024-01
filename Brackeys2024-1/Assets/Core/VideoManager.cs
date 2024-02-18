@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Core.Objects.Triggers;
+using UnityEngine.UI;
 
 public class VideoManager : MonoBehaviour
 {
@@ -27,6 +28,8 @@ public class VideoManager : MonoBehaviour
     Billboard billboardComponent;
     bool billboardEnabled;
 
+    Animator fadeToWhite;
+
 
     private void Awake()
     {
@@ -34,6 +37,7 @@ public class VideoManager : MonoBehaviour
         videoComponent = GetComponent<VideoComponent>();
         billboardComponent = GetComponent<Billboard>();
         greenScreenMaterial = greenScreen.GetComponent<Renderer>().material;
+        fadeToWhite = GameObject.FindWithTag("Ending").GetComponent<Animator>();
     }
 
 
@@ -159,8 +163,8 @@ public class VideoManager : MonoBehaviour
         yield return new WaitForSeconds(20);
         billboardEnabled = true;
         PlayVideo(12);
-        /*yield return new WaitForSeconds(25);
-        // Teleport to the ending screen? Return to the main menu?*/
+        yield return new WaitForSeconds(25);
+        EndGame();
     }
 
 
@@ -251,6 +255,14 @@ public class VideoManager : MonoBehaviour
             SecretComplete();
         }
     }
+
+
+
+    void EndGame()
+    {
+        fadeToWhite.Play("FadeToMenu");
+    }
+
 
 
 
