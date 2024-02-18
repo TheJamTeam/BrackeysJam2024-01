@@ -58,7 +58,7 @@ public class VideoManager : MonoBehaviour
                 if (hintTimer == null) { hintTimer = StartCoroutine(HintTimer(roomTwoHintTimer)); }
                 break;
             case 3:
-                billboardEnabled = true;
+                billboardEnabled = false;
                 PlayVideo(8);
                 if (hintTimer == null) { hintTimer = StartCoroutine(HintTimer(roomThreeHintTimer)); }
                 break;
@@ -90,7 +90,7 @@ public class VideoManager : MonoBehaviour
                 
                 break;
             case 2:
-                billboardEnabled = false;
+                billboardEnabled = true;
                 PlayVideo(5);
                 break;
             case 3:
@@ -116,7 +116,7 @@ public class VideoManager : MonoBehaviour
                 break;
             case 2:
                 if (hintTimer != null) { hintTimer = null; StopCoroutine(HintTimer(roomTwoHintTimer)); }
-                billboardEnabled = false;
+                billboardEnabled = true;
                 PlayVideo(6);
                 break;
             case 3:
@@ -234,7 +234,7 @@ public class VideoManager : MonoBehaviour
                 secretPuzzleTrigger = "Proudfoot's Painting";
                 break;
             case 2:
-                neutralPuzzleTrigger = "Weight";
+                neutralPuzzleTrigger = "FloorWeight";
                 secretPuzzleTrigger = "Ornate Book";
                 break;
             case 3:

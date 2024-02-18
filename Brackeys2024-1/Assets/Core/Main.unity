@@ -1663,37 +1663,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '+----------------------------------------------------+
-
-    |   SSSSSS  
-    EEEEEEEE   OOOOOO   NN    NN   GGGGGG   |
-
-    |  SSSSSSSS  EEEEEEEE  OOOOOOOO 
-    NN    NN  GGGGGGGG  |
-
-    |  SS        EE        OO    OO  NNN   NN  GG       
-    |
-
-    |  SS        EE        OO    OO  NNNN  NN  GG        |
-
-    |  SSSSSSS  
-    EEEEEEEE  OO    OO  NN NN NN  GG        |
-
-    |   SSSSSSS  EEEEEEEE  OO    OO 
-    NN  NNNN  GG  GGG   |
-
-    |        SS  EE        OO    OO  NN   NNN  GG  GGGG 
-    |
-
-    |        SS  EE        OO    OO  NN    NN  GG    GG  |
-
-    |  SSSSSSSS 
-    EEEEEEEE  OOOOOOOO  NN    NN  GGGGGGGG  |
-
-    |   SSSSSS   EEEEEEEE   OOOOOO  
-    NN    NN   GGGGGG   |
-
-    +----------------------------------------------------+'
+  m_text: Memories of Young
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: f4e4ade03256315489928e354975bb90, type: 2}
   m_sharedMaterial: {fileID: 7828144681762145885, guid: f4e4ade03256315489928e354975bb90,
