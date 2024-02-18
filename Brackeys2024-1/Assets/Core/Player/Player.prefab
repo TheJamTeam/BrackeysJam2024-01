@@ -300,7 +300,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   puzzleDictionary:
-    items: []
+    items:
+    - TriggeringObject: Blank Canvas
+      CompletedPuzzle: 10
+    - TriggeringObject: Proudfoot's Painting
+      CompletedPuzzle: 11
+    - TriggeringObject: WeightsOnBar
+      CompletedPuzzle: 20
+    - TriggeringObject: BooksOnBar
+      CompletedPuzzle: 21
+    - TriggeringObject: Box of Chocolates
+      CompletedPuzzle: 30
+    - TriggeringObject: Tangle Macrame
+      CompletedPuzzle: 31
 --- !u!1 &7488077641275484621
 GameObject:
   m_ObjectHideFlags: 0
