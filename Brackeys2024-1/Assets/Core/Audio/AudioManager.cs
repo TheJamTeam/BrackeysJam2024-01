@@ -109,11 +109,14 @@ public class AudioManager : Singleton<AudioManager>
         AudioSource source = gameObject.AddComponent<AudioSource>();
         source.outputAudioMixerGroup = sfxMix;
 
-        source.clip = soundToPlay.clips[Random.Range(0, soundToPlay.clips.Count)];
-        source.volume = soundToPlay.volumePercent * sfxVolume;
-        source.Play();
+        if (soundToPlay.clips.Count > 0)
+        {
+            source.clip = soundToPlay.clips[Random.Range(0, soundToPlay.clips.Count)];
+            source.volume = soundToPlay.volumePercent * sfxVolume;
+            source.Play();
 
-        _activeSources.Add(source);
+            _activeSources.Add(source);
+        }
     }
     
     private void CleanUpSoundEffects()
