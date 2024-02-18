@@ -172,10 +172,16 @@ public class VideoComponent : MonoBehaviour
 
     public void StopVideo(bool interrupt)
     {
-        _videoPlayer.Stop();
-        _videoPlayer.url = string.Empty;
-        CancelInvoke(nameof(OnVideoFinished));
-        if (!interrupt) { _videoManager.FadeOut(); }
+        if (_videoPlayer.isPlaying ) 
+        {
+            _videoPlayer.Stop();
+            //_videoPlayer.url = string.Empty;
+            CancelInvoke(nameof(OnVideoFinished));
+            if (!interrupt)
+            {
+                _videoManager.FadeOut();
+            }
+        }
     }
 
     //TODO Hook up to Game.cs pause. @jeremy!

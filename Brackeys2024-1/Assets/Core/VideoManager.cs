@@ -19,7 +19,7 @@ public class VideoManager : MonoBehaviour
 
     private void Awake()
     {
-        videoComponent = greenScreen.GetComponent<VideoComponent>();
+        videoComponent = GetComponent<VideoComponent>();
         greenScreenMaterial = greenScreen.GetComponent<Renderer>().material;
         currentVideoPosition = 0;
     }
@@ -28,7 +28,6 @@ public class VideoManager : MonoBehaviour
     public void RoomIntro(int roomNumber)
     {
         activeRoom = roomNumber;
-        Debug.Log(roomNumber);
 
         switch (roomNumber)
         {
