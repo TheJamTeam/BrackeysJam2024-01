@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &1199417518581747206
+--- !u!1 &5600142565096369186
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,54 +8,54 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1199417518581747215}
-  - component: {fileID: 8511514067351325857}
-  - component: {fileID: 6113548228364089586}
-  - component: {fileID: 7995523747210008636}
-  - component: {fileID: 4194760564917818221}
+  - component: {fileID: 1614635706161740717}
+  - component: {fileID: 5408832731937789901}
+  - component: {fileID: 7627232986932650910}
+  - component: {fileID: 6051498937900598096}
+  - component: {fileID: 520228183977576449}
   m_Layer: 0
-  m_Name: Comprehension
+  m_Name: Ornate Book
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &1199417518581747215
+--- !u!4 &1614635706161740717
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1199417518581747206}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.7000002, y: 0.7000002, z: 0.7000002}
+  m_GameObject: {fileID: 5600142565096369186}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.175529, y: 1.207, z: 0.8387337}
+  m_LocalScale: {x: 0.9, y: 0.9, z: 0.9}
   m_ConstrainProportionsScale: 1
   m_Children:
-  - {fileID: 1033328531640430472}
+  - {fileID: 8444033377430843144}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &8511514067351325857
+--- !u!65 &5408832731937789901
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1199417518581747206}
+  m_GameObject: {fileID: 5600142565096369186}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 0.24, y: 0.65, z: 0.44}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!54 &6113548228364089586
+--- !u!54 &7627232986932650910
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1199417518581747206}
+  m_GameObject: {fileID: 5600142565096369186}
   serializedVersion: 2
   m_Mass: 1
   m_Drag: 0
@@ -65,13 +65,13 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &7995523747210008636
+--- !u!114 &6051498937900598096
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1199417518581747206}
+  m_GameObject: {fileID: 5600142565096369186}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: eb0acee71b96b1d4e838f8cc686d9192, type: 3}
@@ -84,19 +84,19 @@ MonoBehaviour:
   - name: HoldingInteract
     clips: []
     volumePercent: 1
---- !u!114 &4194760564917818221
+--- !u!114 &520228183977576449
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1199417518581747206}
+  m_GameObject: {fileID: 5600142565096369186}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 05098ad76dbd1f94395997ef47b14197, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interactID: Comprehension
+  interactID: Ornate Book
   useType: 3
   useConditions: 1
   useCount: 0
@@ -109,9 +109,9 @@ MonoBehaviour:
   IsSocketedBy: {fileID: 0}
   RequiresAllCombinationKeys: 0
   ValidCombinationKeys:
-  - InteractID: ComprehensionShelf
+  - InteractID: BooksOnBar
     IsCombined: 0
---- !u!1 &2491659481346964670
+--- !u!1 &6479556530710641726
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -119,9 +119,9 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1033328531640430472}
-  - component: {fileID: 938312424671105597}
-  - component: {fileID: 7589515963304805350}
+  - component: {fileID: 8444033377430843144}
+  - component: {fileID: 8538168900139995837}
+  - component: {fileID: 1309216823388537702}
   m_Layer: 0
   m_Name: ornateBook
   m_TagString: Untagged
@@ -129,36 +129,36 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &1033328531640430472
+--- !u!4 &8444033377430843144
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2491659481346964670}
+  m_GameObject: {fileID: 6479556530710641726}
   m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071067}
   m_LocalPosition: {x: -0.29466683, y: 0.027321447, z: 0.032666527}
   m_LocalScale: {x: 29.156515, y: 20.000938, z: 32.24455}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1199417518581747215}
+  m_Father: {fileID: 1614635706161740717}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &938312424671105597
+--- !u!33 &8538168900139995837
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2491659481346964670}
+  m_GameObject: {fileID: 6479556530710641726}
   m_Mesh: {fileID: -7092811050947759749, guid: 87f8ba55cc88f25449ee8b8fc89002f1, type: 3}
---- !u!23 &7589515963304805350
+--- !u!23 &1309216823388537702
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2491659481346964670}
+  m_GameObject: {fileID: 6479556530710641726}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -172,7 +172,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 824302d62167e664ea86ae667002008a, type: 2}
+  - {fileID: 3111353815825550630, guid: 87f8ba55cc88f25449ee8b8fc89002f1, type: 3}
   - {fileID: 860009042184301646, guid: 87f8ba55cc88f25449ee8b8fc89002f1, type: 3}
   - {fileID: 6223686345091522663, guid: 87f8ba55cc88f25449ee8b8fc89002f1, type: 3}
   - {fileID: -5346581934900707243, guid: 87f8ba55cc88f25449ee8b8fc89002f1, type: 3}
