@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using Core.Player;
 using UnityEngine;
 
@@ -20,7 +21,9 @@ namespace Core.Objects.Triggers
             if (!other.CompareTag("Player")) return;
             if (_visitCount == 0)
             {
-                OnFirstEnter?.Invoke(roomNumber);
+                StartCoroutine(WaitToInvoke(OnFirstEnter));
+                //OnFirstEnter?.Invoke(roomNumber);
+                Debug.Log("Invoked OnFirstEnter");
             }
             else
             {
@@ -41,6 +44,12 @@ namespace Core.Objects.Triggers
             {
                 OnExit?.Invoke(roomNumber);
             }
+        }
+
+        IEnumerator WaitToInvoke(Action<int> actionToInvoke)
+        {
+            yield return new WaitForSecondsRealtime(0.5f);
+            actionToInvoke?.Invoke(roomNumber);
         }
     }
 }
