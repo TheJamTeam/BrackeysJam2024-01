@@ -123,6 +123,64 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+<<<<<<< Updated upstream
+=======
+--- !u!1 &77623070
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 77623072}
+  - component: {fileID: 77623071}
+  m_Layer: 0
+  m_Name: SplinePath
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &77623071
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 77623070}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5f53352ac285f741b4e384a5f4b5eed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _plane: {fileID: 1550899588}
+  pathStart: {fileID: 1243858289}
+  pathEnd: {fileID: 1485182769}
+  pathWidth: 2
+  objects:
+  - {fileID: 3247342115444641, guid: 89af02de089404848af0f86db273ccb8, type: 3}
+  - {fileID: 619516169435488365, guid: 81460362ec3da824c9ab3d8d9d7d7e24, type: 3}
+  numberOfObjects: 60
+--- !u!4 &77623072
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 77623070}
+  m_LocalRotation: {x: -0, y: -0.70710576, z: -0, w: 0.70710784}
+  m_LocalPosition: {x: 0, y: 0, z: 27.39}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1308396367}
+  - {fileID: 2108717398}
+  - {fileID: 1550899591}
+  m_Father: {fileID: 0}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
+>>>>>>> Stashed changes
 --- !u!1 &104810421
 GameObject:
   m_ObjectHideFlags: 0
@@ -4064,6 +4122,46 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 627750718}
     m_Modifications:
+    - target: {fileID: 2200463920270939906, guid: 54cfad1e1ced4a94cad317e430e376ac,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.97
+      objectReference: {fileID: 0}
+    - target: {fileID: 2200463920270939906, guid: 54cfad1e1ced4a94cad317e430e376ac,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.09
+      objectReference: {fileID: 0}
+    - target: {fileID: 2200463920270939906, guid: 54cfad1e1ced4a94cad317e430e376ac,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.3050554
+      objectReference: {fileID: 0}
+    - target: {fileID: 2200463920270939906, guid: 54cfad1e1ced4a94cad317e430e376ac,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.3050554
+      objectReference: {fileID: 0}
+    - target: {fileID: 2200463920270939906, guid: 54cfad1e1ced4a94cad317e430e376ac,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.6379194
+      objectReference: {fileID: 0}
+    - target: {fileID: 2200463920270939906, guid: 54cfad1e1ced4a94cad317e430e376ac,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.6379194
+      objectReference: {fileID: 0}
+    - target: {fileID: 2200463920270939906, guid: 54cfad1e1ced4a94cad317e430e376ac,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 2200463920270939906, guid: 54cfad1e1ced4a94cad317e430e376ac,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 128.885
+      objectReference: {fileID: 0}
     - target: {fileID: 4266256774333267293, guid: 54cfad1e1ced4a94cad317e430e376ac,
         type: 3}
       propertyPath: m_LocalRotation.w
@@ -4117,7 +4215,7 @@ PrefabInstance:
     - target: {fileID: 6465401056749532066, guid: 54cfad1e1ced4a94cad317e430e376ac,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.5
+      value: 0.468
       objectReference: {fileID: 0}
     - target: {fileID: 6465401056749532066, guid: 54cfad1e1ced4a94cad317e430e376ac,
         type: 3}
