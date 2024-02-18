@@ -8,6 +8,6 @@ public class PauseMenu : Menu {
 
 	public void OnOptionsPressed() => UIManager.Show<OptionsMenu>(true);
 
-	public void OnQuitPressed() => Application.Quit();
+	public void OnQuitPressed() => Game.Instance.RestartGame();
 
 }
