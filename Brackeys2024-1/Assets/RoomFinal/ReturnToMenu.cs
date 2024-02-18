@@ -1,17 +1,18 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class ReturnToMenu : MonoBehaviour
+namespace CustomScripts.RoomFinal
 {
-    public void EndGame()
+    public class ReturnToMenu : MonoBehaviour
     {
-        /* Deload everything and reset to scene 0, somehow? */
-        for (int i = 0; i < SceneManager.sceneCountInBuildSettings; i++)
+        public void EndGame()
         {
-            SceneManager.UnloadSceneAsync(i);
+            /* Deload everything and reset to scene 0, somehow? */
+            for (int i = 0; i < SceneManager.sceneCountInBuildSettings; i++)
+            {
+                SceneManager.UnloadSceneAsync(i);
+            }
+            SceneManager.LoadScene(0);
         }
-        SceneManager.LoadScene(0);
     }
 }

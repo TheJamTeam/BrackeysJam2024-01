@@ -1,0 +1,16 @@
+{
+    "name": "Room1",
+    "rootNamespace": "CustomScripts",
+    "references": [
+        "GUID:de001b8e204b48a4ba925d04bef7390d"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

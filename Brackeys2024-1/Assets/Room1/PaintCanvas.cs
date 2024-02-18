@@ -1,38 +1,39 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
+using CustomScripts.Core.Objects;
 using UnityEngine;
-using Core.Objects.Triggers;
 
-public class PaintCanvas : MonoBehaviour
+namespace CustomScripts.Room1
 {
-    public string triggerID;
-    public Material paintedMat;
-    public Renderer rdr;
-
-
-    private void OnEnable()
+    public class PaintCanvas : MonoBehaviour
     {
-        InteractComponent.OnInteractKeysComplete += ApplyPaint;
-        InteractComponent.OnInteractUsed += ApplyPaint;
-    }
+        public string triggerID;
+        public Material paintedMat;
+        public Renderer rdr;
 
-    private void OnDisable()
-    {
-        InteractComponent.OnInteractKeysComplete -= ApplyPaint;
-        InteractComponent.OnInteractUsed -= ApplyPaint;
-    }
 
-    public void ApplyPaint(string interactID)
-    {
-        // Are the two IDs equal, ignoring case (incase of typo)
-        if (String.Equals(interactID, triggerID, StringComparison.OrdinalIgnoreCase))
+        private void OnEnable()
         {
-            Material[] splatterMaterials = new Material[2];
-            splatterMaterials.SetValue(paintedMat, 0);
-            splatterMaterials.SetValue(paintedMat, 1);
-            rdr.materials = splatterMaterials;
-            Destroy(this);
+            InteractComponent.OnInteractKeysComplete += ApplyPaint;
+            InteractComponent.OnInteractUsed += ApplyPaint;
+        }
+
+        private void OnDisable()
+        {
+            InteractComponent.OnInteractKeysComplete -= ApplyPaint;
+            InteractComponent.OnInteractUsed -= ApplyPaint;
+        }
+
+        public void ApplyPaint(string interactID)
+        {
+            // Are the two IDs equal, ignoring case (incase of typo)
+            if (String.Equals(interactID, triggerID, StringComparison.OrdinalIgnoreCase))
+            {
+                Material[] splatterMaterials = new Material[2];
+                splatterMaterials.SetValue(paintedMat, 0);
+                splatterMaterials.SetValue(paintedMat, 1);
+                rdr.materials = splatterMaterials;
+                Destroy(this);
+            }
         }
     }
 }

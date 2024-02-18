@@ -1,9 +1,8 @@
 using System;
 using System.Collections;
-using Core.Player;
 using UnityEngine;
 
-namespace Core.Objects.Triggers
+namespace CustomScripts.Core.Objects.Triggers
 {
     public class RoomTrigger : MonoBehaviour
     {

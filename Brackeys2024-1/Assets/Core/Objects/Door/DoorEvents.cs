@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace Core.Objects.Door
+namespace CustomScripts.Core.Objects.Door
 {
     /// <summary>
     /// Stores the close Event, and the Trigger Logic for Closing the Door. Closing Can be invoked without trigger
