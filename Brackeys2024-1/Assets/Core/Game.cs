@@ -27,6 +27,18 @@ public class Game : Singleton<Game> {
 		Context.Create();
 	}
 
+	public void RestartGame() {
+		Context.Destroy();
+		Pause(true);
+	}
+
+	public void EndGame(EndGameData data) {
+		Context.Destroy();
+		Pause(true);
+		UIManager.GetMenu<FinishMenu>().SetData(data);
+		UIManager.Show<FinishMenu>();
+	}
+
 	public void QuitGame() {
 		Application.Quit();
 	}
@@ -55,4 +67,9 @@ public class Game : Singleton<Game> {
 		}
 	}
 
+}
+
+
+public struct EndGameData {
+	// puzzles solved
 }
