@@ -2605,12 +2605,17 @@ PrefabInstance:
     - target: {fileID: 8914424026808490615, guid: 9da1dde1b9e46474f8421a28ae481957,
         type: 3}
       propertyPath: m_Size.x
-      value: 20.72
+      value: 20.090742
       objectReference: {fileID: 0}
     - target: {fileID: 8914424026808490615, guid: 9da1dde1b9e46474f8421a28ae481957,
         type: 3}
       propertyPath: m_Size.y
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8914424026808490615, guid: 9da1dde1b9e46474f8421a28ae481957,
+        type: 3}
+      propertyPath: m_Center.x
+      value: -0.31462955
       objectReference: {fileID: 0}
     - target: {fileID: 9022790237369420900, guid: 9da1dde1b9e46474f8421a28ae481957,
         type: 3}
@@ -3357,6 +3362,7 @@ GameObject:
   - component: {fileID: 2049386400}
   - component: {fileID: 2049386399}
   - component: {fileID: 2049386398}
+  - component: {fileID: 2049386407}
   m_Layer: 0
   m_Name: GreenScreen
   m_TagString: Untagged
@@ -3656,6 +3662,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: -270, y: 0, z: -186.801}
+--- !u!54 &2049386407
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2049386397}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 80
+  m_CollisionDetection: 0
 --- !u!1001 &2101557134
 PrefabInstance:
   m_ObjectHideFlags: 0
