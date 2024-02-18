@@ -115,6 +115,8 @@ public class UIManager : Singleton<UIManager> {
 			Instance.stack.Add(menu);
 			menu.Show();
 		}
+
+		Camera.gameObject.SetActive(!Context.Exists);
 	}
 
 	//----------------------------------------------------------------------------------------------------------
