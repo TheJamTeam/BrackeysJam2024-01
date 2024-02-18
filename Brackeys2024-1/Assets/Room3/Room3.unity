@@ -774,6 +774,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: EntranceDoor
       objectReference: {fileID: 0}
+    - target: {fileID: 6465401056749532065, guid: 54cfad1e1ced4a94cad317e430e376ac,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6465401056749532066, guid: 54cfad1e1ced4a94cad317e430e376ac,
         type: 3}
       propertyPath: m_RootOrder

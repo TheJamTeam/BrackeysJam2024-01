@@ -14,7 +14,11 @@ public class Billboard : MonoBehaviour
 
     void LateUpdate()
     {
-        transform.LookAt(player.transform);
-        transform.Rotate(-270, -90, -90);
+        /*transform.LookAt(player.transform);
+        transform.Rotate(-270, -90, -90);*/
+
+        Vector3 lookDirection = new Vector3(player.transform.position.x, transform.position.y, player.transform.position.z);
+        transform.LookAt(lookDirection);
+        transform.eulerAngles = new Vector3(90, transform.eulerAngles.y, transform.eulerAngles.z);
     }
 }
