@@ -31,6 +31,9 @@ public class Context : Singleton<Context> {
 	}
 
 	protected override void OnDestroy() {
+		if(!Instance)
+			return;
+
 		base.OnDestroy();
 
 		// Game.Instance.Pause(true);
@@ -41,9 +44,19 @@ public class Context : Singleton<Context> {
 		}
 	}
 
+	public static void Destroy() {
+		if(!Instance) {
+			return;
+		}
+
+		GameObject obj = Instance.gameObject;
+		Instance.OnDestroy();
+		Destroy(obj);
+	}
+
 	public static void Create() {
 		if(Instance) {
-			Destroy(Instance.gameObject);
+			Destroy();
 		}
 
 		new GameObject("Context", typeof(Context));
