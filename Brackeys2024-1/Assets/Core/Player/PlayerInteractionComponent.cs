@@ -1,144 +1,145 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
+using CustomScripts.Core.Input;
+using CustomScripts.Core.Objects;
 using Unity.Collections;
 using UnityEngine;
-using UnityEngine.Serialization;
 
-public class PlayerInteractionComponent : MonoBehaviour
+namespace CustomScripts.Core.Player
 {
-    private Rigidbody _rigidbody;
-    [Tooltip("The object the player is currently holding. Can only be holding 1 object at a time.")][ReadOnly]
-    public InteractComponent currentlyHoldingObject = null;
-    
-    [Tooltip("The object the player is currently looking at")][ReadOnly]
-    public InteractComponent currentFocus = null;
-    
-    [Header("Holding Properties")]
-    [Tooltip("The Transform held objects will stick to. \nAutomatically position, update offset with 'Hold Offset' variable")]
-    public Transform holdTransform;
-    
-    [Tooltip("The distance (in units) that held items gravitate towards.")]
-    public Vector3 holdOffset;
-    
-    [Tooltip("How strong the gravity should be based on how close the target is. \n " +
-             "Helps to combat jitter at close distances.")]
-    public AnimationCurve gravityDistanceCurve;
-    
-    [Tooltip("How snappy the object should be to the cursor. High values can cause strange results.")]
-    public float gravityStrength = 10f;
-    
-    [Tooltip("How quick the object should face the correct rotation.")]
-    public float rotationSpeed = 5f;
-    
-    [Header("Focusing Properties")]
-    [Tooltip("The radius around the center of the camera that will be checked for focus targets.")]
-    public float focusRadius;
-    
-    [Tooltip("The distance (in units) focus targets must be within.")]
-    public float focusRange;
-    
-    
-    void OnEnable()
+    public class PlayerInteractionComponent : MonoBehaviour
     {
-        InputManager.OnPrimaryUpdated += OnPrimaryAction;
-    }
-
-    void OnDisable()
-    {
-        InputManager.OnPrimaryUpdated -= OnPrimaryAction;
-    }
-
-    private void Awake()
-    {
-        _rigidbody = GetComponent<Rigidbody>();
-    }
-
-    void OnPrimaryAction()
-    {
-        Interact();
-    }
-
-    void Update()
-    {
-        CalculateCurrentFocus();
-    }
+        private Rigidbody _rigidbody;
+        [Tooltip("The object the player is currently holding. Can only be holding 1 object at a time.")][ReadOnly]
+        public InteractComponent currentlyHoldingObject = null;
     
-    //Physics Calculations go in Fixed Update
-    void FixedUpdate()
-    {
-        if (currentlyHoldingObject)
+        [Tooltip("The object the player is currently looking at")][ReadOnly]
+        public InteractComponent currentFocus = null;
+    
+        [Header("Holding Properties")]
+        [Tooltip("The Transform held objects will stick to. \nAutomatically position, update offset with 'Hold Offset' variable")]
+        public Transform holdTransform;
+    
+        [Tooltip("The distance (in units) that held items gravitate towards.")]
+        public Vector3 holdOffset;
+    
+        [Tooltip("How strong the gravity should be based on how close the target is. \n " +
+                 "Helps to combat jitter at close distances.")]
+        public AnimationCurve gravityDistanceCurve;
+    
+        [Tooltip("How snappy the object should be to the cursor. High values can cause strange results.")]
+        public float gravityStrength = 10f;
+    
+        [Tooltip("How quick the object should face the correct rotation.")]
+        public float rotationSpeed = 5f;
+    
+        [Header("Focusing Properties")]
+        [Tooltip("The radius around the center of the camera that will be checked for focus targets.")]
+        public float focusRadius;
+    
+        [Tooltip("The distance (in units) focus targets must be within.")]
+        public float focusRange;
+    
+    
+        void OnEnable()
         {
-            if (currentlyHoldingObject.IsHeldBy == this)
-            {
-                currentlyHoldingObject.HoldUpdate(holdTransform, _rigidbody, gravityStrength, gravityDistanceCurve, rotationSpeed);
-            }
-            else
-            {
-                currentlyHoldingObject = null;
-            }
+            InputManager.OnPrimaryUpdated += OnPrimaryAction;
         }
-        
-    }
 
-    //Raycasts from the origin and checks to see if any objects that can interacted with. Then chooses the primary target. Will always choose closest/First
-    void CalculateCurrentFocus()
-    {
-        Vector3 originPosition = holdTransform.transform.position;
-        Vector3 endPosition = originPosition + holdTransform.transform.forward * focusRange;
-        RaycastHit[] hits = Physics.CapsuleCastAll(originPosition, endPosition, focusRadius, holdTransform.forward, focusRange);
-        InteractComponent bestFocus = null;
-        
-        foreach (RaycastHit hit in hits)
+        void OnDisable()
         {
-            InteractComponent interactComponent = null;
-            interactComponent = hit.transform.GetComponent<InteractComponent>();
-            if (interactComponent is not null)
+            InputManager.OnPrimaryUpdated -= OnPrimaryAction;
+        }
+
+        private void Awake()
+        {
+            _rigidbody = GetComponent<Rigidbody>();
+        }
+
+        void OnPrimaryAction()
+        {
+            Interact();
+        }
+
+        void Update()
+        {
+            CalculateCurrentFocus();
+        }
+    
+        //Physics Calculations go in Fixed Update
+        void FixedUpdate()
+        {
+            if (currentlyHoldingObject)
             {
-                if (interactComponent != currentlyHoldingObject)
+                if (currentlyHoldingObject.IsHeldBy == this)
                 {
-                    //Just focus the first valid target.
-                    //TODO Rework for if the interactable can be focused.
-                    bestFocus = interactComponent;
-                    break;
+                    currentlyHoldingObject.HoldUpdate(holdTransform, _rigidbody, gravityStrength, gravityDistanceCurve, rotationSpeed);
+                }
+                else
+                {
+                    currentlyHoldingObject = null;
+                }
+            }
+        
+        }
+
+        //Raycasts from the origin and checks to see if any objects that can interacted with. Then chooses the primary target. Will always choose closest/First
+        void CalculateCurrentFocus()
+        {
+            Vector3 originPosition = holdTransform.transform.position;
+            Vector3 endPosition = originPosition + holdTransform.transform.forward * focusRange;
+            RaycastHit[] hits = Physics.CapsuleCastAll(originPosition, endPosition, focusRadius, holdTransform.forward, focusRange);
+            InteractComponent bestFocus = null;
+        
+            foreach (RaycastHit hit in hits)
+            {
+                InteractComponent interactComponent = null;
+                interactComponent = hit.transform.GetComponent<InteractComponent>();
+                if (interactComponent is not null)
+                {
+                    if (interactComponent != currentlyHoldingObject)
+                    {
+                        //Just focus the first valid target.
+                        //TODO Rework for if the interactable can be focused.
+                        bestFocus = interactComponent;
+                        break;
+                    }
+                }
+            }
+
+            currentFocus = bestFocus;
+        }
+
+        //Either picks up the object, drops the object, or uses it on another interact-object.
+        void Interact()
+        {
+            if (currentlyHoldingObject is not null)
+            {
+                //Current focus CAN be null here.
+                if (currentlyHoldingObject.TryUse(currentFocus) is not true)
+                {
+                    //TODO Discuss if we want a drop key, or to drop when an object failed to use (Used on nothing/Incompatible).
+                    DropHeldObject();
+                }
+            }
+            else if(currentFocus)
+            {
+                //Interact with the object.
+                if (currentFocus.PickedUpByPlayer(this))
+                {
+                    currentlyHoldingObject = currentFocus;
                 }
             }
         }
 
-        currentFocus = bestFocus;
-    }
-
-    //Either picks up the object, drops the object, or uses it on another interact-object.
-    void Interact()
-    {
-        if (currentlyHoldingObject is not null)
+        protected void OnValidate()
         {
-            //Current focus CAN be null here.
-            if (currentlyHoldingObject.TryUse(currentFocus) is not true)
-            {
-                //TODO Discuss if we want a drop key, or to drop when an object failed to use (Used on nothing/Incompatible).
-                DropHeldObject();
-            }
+            holdTransform.localPosition = holdOffset;
         }
-        else if(currentFocus)
+
+        public void DropHeldObject(bool isBeingDestroyed=false)
         {
-            //Interact with the object.
-            if (currentFocus.PickedUpByPlayer(this))
-            {
-                currentlyHoldingObject = currentFocus;
-            }
+            if(!isBeingDestroyed)
+                currentlyHoldingObject.DroppedByPlayer();
+            currentlyHoldingObject = null;
         }
-    }
-
-    protected void OnValidate()
-    {
-        holdTransform.localPosition = holdOffset;
-    }
-
-    public void DropHeldObject(bool isBeingDestroyed=false)
-    {
-        if(!isBeingDestroyed)
-            currentlyHoldingObject.DroppedByPlayer();
-        currentlyHoldingObject = null;
     }
 }

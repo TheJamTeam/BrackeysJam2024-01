@@ -5,179 +5,184 @@ using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.Serialization;
+using CustomScripts.Helpers;
 using Random = UnityEngine.Random;
 
-[Serializable]
-public struct Sound
+namespace Core.Audio
 {
-    #region Equality Overrides
-
-    public static bool operator ==(Sound s1, Sound s2) 
+    [Serializable]
+    public struct Sound
     {
-        return s1.Equals(s2);
-    }
+        #region Equality Overrides
 
-    public static bool operator !=(Sound s1, Sound s2) 
-    {
-        return !s1.Equals(s2);
-    }
+        public static bool operator ==(Sound s1, Sound s2) 
+        {
+            return s1.Equals(s2);
+        }
 
-    public override bool Equals(object obj)
-    {
-        if (ReferenceEquals(null, obj)) return false;
-        if (obj.GetType() != this.GetType()) return false;
-        return this.clips == ((Sound)obj).clips;
-    }
-    
-    public override int GetHashCode ()
-    {
-        return this.clips.GetHashCode ();
-    }
+        public static bool operator !=(Sound s1, Sound s2) 
+        {
+            return !s1.Equals(s2);
+        }
 
-    #endregion
-    
-    public string name;
-    [FormerlySerializedAs("clip")] public List<AudioClip> clips;
-    public float volumePercent;
-}
-
-public class AudioManager : Singleton<AudioManager>
-{
-    public AudioMixer audioMixer;
-    
-    [Header("Master")]
-    public bool masterMute = false;
-    public float masterVolume;
-
-    [Header("Music")]
-    public bool musicMute;
-    public float musicVolume;
-    public AudioMixerGroup musicMix;
-    private AudioSource musicSource;
-    private Sound currentMusic;
-
-    [Header("Sound Effects (Sfx)")]
-    public bool sfxMute = false;
-    public float sfxVolume;
-    public AudioMixerGroup sfxMix;
-    private List<AudioSource> _activeSources = new List<AudioSource>();
-
-    #region Unity Functions
-
-    private void Start()
-    {
-        //Reset volumes to saved values.
-        ChangeMasterVol(masterVolume);
-        ChangeSfxVol(sfxVolume);
-        ChangeMusicVol(musicVolume);
-    }
-    
-    //Audio Clean-up
-    private void Update()
-    {
-        CleanUpSoundEffects();
-    }
-
-    #endregion
-
-    #region Master
-
-    public void ChangeMasterVol(float sliderValue)
-    {
-        masterVolume = sliderValue;
-        audioMixer.SetFloat("MasterVol", Mathf.Log10(masterVolume) * 20);
-    }
-
-    #endregion
-    
-    #region Sound Effects (Sfx)
-
-    public void ChangeSfxVol(float sliderValue)
-    {
-        sfxVolume = sliderValue; 
-        audioMixer.SetFloat("SfxVol", Mathf.Log10(sfxVolume) * 20);
-    }
-    
-    public void PlaySound(Sound soundToPlay)
-    {
-        if (masterMute || sfxMute)
-            return;
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (obj.GetType() != this.GetType()) return false;
+            return this.clips == ((Sound)obj).clips;
+        }
         
-        if (_activeSources.Count >= 5)
-            return;
-
-        AudioSource source = gameObject.AddComponent<AudioSource>();
-        source.outputAudioMixerGroup = sfxMix;
-
-        if (soundToPlay.clips.Count > 0)
+        public override int GetHashCode ()
         {
-            source.clip = soundToPlay.clips[Random.Range(0, soundToPlay.clips.Count)];
-            source.volume = soundToPlay.volumePercent * sfxVolume;
-            source.Play();
+            return this.clips.GetHashCode ();
+        }
 
-            _activeSources.Add(source);
-        }
-    }
-    
-    private void CleanUpSoundEffects()
-    {
-        // Clean up finished sounds
-        for (int i = _activeSources.Count - 1; i >= 0; i--)
-        {
-            if (!_activeSources[i].isPlaying)
-            {
-                Destroy(_activeSources[i]);
-                _activeSources.RemoveAt(i);
-            }
-        }
+        #endregion
+        
+        public string name;
+        [FormerlySerializedAs("clip")] public List<AudioClip> clips;
+        public float volumePercent;
     }
 
-    #endregion
-    
-    #region Music
-    
-    public void PlayMusic(Sound musicToPlay)
+    public class AudioManager : Singleton<AudioManager>
     {
-        if (musicToPlay.clips is not null)
+        public AudioMixer audioMixer;
+        
+        [Header("Master")]
+        public bool masterMute = false;
+        public float masterVolume;
+
+        [Header("Music")]
+        public bool musicMute;
+        public float musicVolume;
+        public AudioMixerGroup musicMix;
+        private AudioSource musicSource;
+        private Sound currentMusic;
+
+        [Header("Sound Effects (Sfx)")]
+        public bool sfxMute = false;
+        public float sfxVolume;
+        public AudioMixerGroup sfxMix;
+        private List<AudioSource> _activeSources = new List<AudioSource>();
+
+        #region Unity Functions
+
+        private void Start()
         {
-            //Check if Muted
-            if (masterMute || musicMute)
-            {
-                return;
-            }
+            //Reset volumes to saved values.
+            ChangeMasterVol(masterVolume);
+            ChangeSfxVol(sfxVolume);
+            ChangeMusicVol(musicVolume);
+        }
+        
+        //Audio Clean-up
+        private void Update()
+        {
+            CleanUpSoundEffects();
+        }
 
-            //Don't play an already playing track
-            if (currentMusic == musicToPlay)
-            {
-                Debug.Log(String.Format("Attempting to play a music '%s', but it was already playing!", musicToPlay.name));
-                return;
-            }
+        #endregion
 
-            //Initialize Music Source 
-            if (musicSource is null)
-            {
-                musicSource = gameObject.AddComponent<AudioSource>();
-                musicSource.outputAudioMixerGroup = musicMix;
-            }
+        #region Master
+
+        public void ChangeMasterVol(float sliderValue)
+        {
+            masterVolume = sliderValue;
+            audioMixer.SetFloat("MasterVol", Mathf.Log10(masterVolume) * 20);
+        }
+
+        #endregion
+        
+        #region Sound Effects (Sfx)
+
+        public void ChangeSfxVol(float sliderValue)
+        {
+            sfxVolume = sliderValue; 
+            audioMixer.SetFloat("SfxVol", Mathf.Log10(sfxVolume) * 20);
+        }
+        
+        public void PlaySound(Sound soundToPlay)
+        {
+            if (masterMute || sfxMute)
+                return;
             
-            //Update and play Track
-            currentMusic = musicToPlay;
-            musicSource.clip = currentMusic.clips[Random.Range(0, currentMusic.clips.Count)];
-            musicSource.volume = currentMusic.volumePercent * musicVolume;
-        
-            musicSource.loop = true;
-            musicSource.Play();
-        }
-    }
-    
-    public void ChangeMusicVol(float sliderValue)
-    {
-        musicVolume = sliderValue; 
-        audioMixer.SetFloat("MusicVol", Mathf.Log10(musicVolume) * 20);
-    }
+            if (_activeSources.Count >= 5)
+                return;
 
-    #endregion
-    
-    
-    
+            AudioSource source = gameObject.AddComponent<AudioSource>();
+            source.outputAudioMixerGroup = sfxMix;
+
+            if (soundToPlay.clips.Count > 0)
+            {
+                source.clip = soundToPlay.clips[Random.Range(0, soundToPlay.clips.Count)];
+                source.volume = soundToPlay.volumePercent * sfxVolume;
+                source.Play();
+
+                _activeSources.Add(source);
+            }
+        }
+        
+        private void CleanUpSoundEffects()
+        {
+            // Clean up finished sounds
+            for (int i = _activeSources.Count - 1; i >= 0; i--)
+            {
+                if (!_activeSources[i].isPlaying)
+                {
+                    Destroy(_activeSources[i]);
+                    _activeSources.RemoveAt(i);
+                }
+            }
+        }
+
+        #endregion
+        
+        #region Music
+        
+        public void PlayMusic(Sound musicToPlay)
+        {
+            if (musicToPlay.clips is not null)
+            {
+                //Check if Muted
+                if (masterMute || musicMute)
+                {
+                    return;
+                }
+
+                //Don't play an already playing track
+                if (currentMusic == musicToPlay)
+                {
+                    Debug.Log(String.Format("Attempting to play a music '%s', but it was already playing!", musicToPlay.name));
+                    return;
+                }
+
+                //Initialize Music Source 
+                if (musicSource is null)
+                {
+                    musicSource = gameObject.AddComponent<AudioSource>();
+                    musicSource.outputAudioMixerGroup = musicMix;
+                }
+                
+                //Update and play Track
+                currentMusic = musicToPlay;
+                musicSource.clip = currentMusic.clips[Random.Range(0, currentMusic.clips.Count)];
+                musicSource.volume = currentMusic.volumePercent * musicVolume;
+            
+                musicSource.loop = true;
+                musicSource.Play();
+            }
+        }
+        
+        public void ChangeMusicVol(float sliderValue)
+        {
+            musicVolume = sliderValue; 
+            audioMixer.SetFloat("MusicVol", Mathf.Log10(musicVolume) * 20);
+        }
+
+        #endregion
+        
+        
+        
+    }
 }
+

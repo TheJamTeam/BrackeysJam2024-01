@@ -1,75 +1,78 @@
-using System.Collections;
-using System.Collections.Generic;
+using CustomScripts.Core.UI.Scripts;
 using UnityEngine;
-using UnityEngine.SceneManagement;
+using SceneManager = UnityEngine.SceneManagement.SceneManager;
+using CustomScripts.Helpers;
 
-// Overarching gamee/app manager.
-public class Game : Singleton<Game> {
+namespace CustomScripts.Core
+{
+	// Overarching gamee/app manager.
+	public class Game : Singleton<Game> {
 
-	public static bool IsPaused => Instance.isPaused;
+		public static bool IsPaused => Instance.isPaused;
 
-	private bool isPaused = true;
+		private bool isPaused = true;
 
-	protected override void Awake() {
-		base.Awake();
-	}
+		protected override void Awake() {
+			base.Awake();
+		}
 
-	private void Start() {
-		if(Application.isEditor && SceneManager.sceneCount > 1) {
-			// If any additional scene is loaded in the editor, then automatically start game & create context.
-			StartNewGame();
-		} else {
+		private void Start() {
+			if(Application.isEditor && SceneManager.sceneCount > 1) {
+				// If any additional scene is loaded in the editor, then automatically start game & create context.
+				StartNewGame();
+			} else {
+				Pause(true);
+			}
+		}
+
+		public void StartNewGame() {
+			Context.Create();
+		}
+
+		public void RestartGame() {
+			Context.Destroy();
 			Pause(true);
 		}
-	}
 
-	public void StartNewGame() {
-		Context.Create();
-	}
-
-	public void RestartGame() {
-		Context.Destroy();
-		Pause(true);
-	}
-
-	public void EndGame(EndGameData data) {
-		Context.Destroy();
-		Pause(true);
-		UIManager.GetMenu<FinishMenu>().SetData(data);
-		UIManager.Show<FinishMenu>();
-	}
-
-	public void QuitGame() {
-		Application.Quit();
-	}
-
-	public void Pause(bool pause) {
-		if(pause && !isPaused) {
-			Time.timeScale = 0.0F;
-			Cursor.lockState = CursorLockMode.None;
-			Cursor.visible = true;
-		} else if(!pause && isPaused) {
-			Time.timeScale = 1.0F;
-			Cursor.lockState = CursorLockMode.Locked;
-			Cursor.visible = false;
+		public void EndGame(EndGameData data) {
+			Context.Destroy();
+			Pause(true);
+			UIManager.GetMenu<FinishMenu>().SetData(data);
+			UIManager.Show<FinishMenu>();
 		}
 
-		isPaused = pause;
+		public void QuitGame() {
+			Application.Quit();
+		}
 
-		if(Context.Exists) {
-			if(isPaused) {
-				UIManager.Show<PauseMenu>();
-			} else {
-				UIManager.Show<HUD>();
+		public void Pause(bool pause) {
+			if(pause && !isPaused) {
+				Time.timeScale = 0.0F;
+				Cursor.lockState = CursorLockMode.None;
+				Cursor.visible = true;
+			} else if(!pause && isPaused) {
+				Time.timeScale = 1.0F;
+				Cursor.lockState = CursorLockMode.Locked;
+				Cursor.visible = false;
 			}
-		} else {
-			UIManager.Show<MainMenu>();
+
+			isPaused = pause;
+
+			if(Context.Exists) {
+				if(isPaused) {
+					UIManager.Show<PauseMenu>();
+				} else {
+					UIManager.Show<HUD>();
+				}
+			} else {
+				UIManager.Show<MainMenu>();
+			}
 		}
+
 	}
 
-}
 
-
-public struct EndGameData {
-	// puzzles solved
+	public struct EndGameData {
+		// puzzles solved
+	}
 }
