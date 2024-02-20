@@ -1,11 +1,11 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
+using CustomScripts.Core.Objects;
+using CustomScripts.Core.Objects.Triggers;
 using JetBrains.Annotations;
 using UnityEngine;
-using Core.Objects.Triggers;
 
-namespace Core.Player
+namespace CustomScripts.Core.Player
 {
     /// <summary>
     /// Enumeration of the Puzzles in the Game

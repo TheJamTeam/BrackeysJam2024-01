@@ -1,0 +1,18 @@
+{
+    "name": "Core.Audio",
+    "rootNamespace": "CustomScripts",
+    "references": [
+        "GUID:29ae9bccd1df75742ba772bd3914844b"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [
+        ""
+    ],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

@@ -1,9 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+namespace CustomScripts.Core.UI.Scripts
+{
+	public class CreditsMenu : Menu {
 
-public class CreditsMenu : Menu {
+		public void OnBackPressed() => UIManager.Back();
 
-	public void OnBackPressed() => UIManager.Back();
-
+	}
 }

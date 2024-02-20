@@ -1,47 +1,49 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
+using CustomScripts.Core.Objects;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-public class EnableMesh : MonoBehaviour
+namespace CustomScripts.Room2.Objects.Weights.Scripts
 {
-    [SerializeField] private string weightObjName;
-    [FormerlySerializedAs("meshRenderer")] [FormerlySerializedAs("_renderer")] [SerializeField] private GameObject weightMeshRenderer;
-    [SerializeField] private GameObject highlightMeshRenderer;
-
-    private void OnEnable()
+    public class EnableMesh : MonoBehaviour
     {
-        InteractComponent.OnInteractUsed += OnSocketedWeight;
-    }
+        [SerializeField] private string weightObjName;
+        [FormerlySerializedAs("meshRenderer")] [FormerlySerializedAs("_renderer")] [SerializeField] private GameObject weightMeshRenderer;
+        [SerializeField] private GameObject highlightMeshRenderer;
 
-    private void OnSocketedWeight(string socketedItem)
-    {
-        if (string.Compare(socketedItem, weightObjName, StringComparison.OrdinalIgnoreCase)==0) // the strings are the same ignoring case
+        private void OnEnable()
         {
-            highlightMeshRenderer.SetActive(false);
-            weightMeshRenderer.SetActive(true);
+            InteractComponent.OnInteractUsed += OnSocketedWeight;
         }
-    }
 
-    private void OnDisable()
-    {
-        InteractComponent.OnInteractUsed -= OnSocketedWeight;
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (string.Compare(weightObjName, other.gameObject.name, StringComparison.OrdinalIgnoreCase) == 0)
+        private void OnSocketedWeight(string socketedItem)
         {
-            highlightMeshRenderer.SetActive(true);
+            if (string.Compare(socketedItem, weightObjName, StringComparison.OrdinalIgnoreCase)==0) // the strings are the same ignoring case
+            {
+                highlightMeshRenderer.SetActive(false);
+                weightMeshRenderer.SetActive(true);
+            }
         }
-    }
 
-    private void OnTriggerExit(Collider other)
-    {
-        if (string.Compare(weightObjName, other.gameObject.name, StringComparison.OrdinalIgnoreCase) == 0)
+        private void OnDisable()
         {
-            highlightMeshRenderer.SetActive(false);
+            InteractComponent.OnInteractUsed -= OnSocketedWeight;
+        }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            if (string.Compare(weightObjName, other.gameObject.name, StringComparison.OrdinalIgnoreCase) == 0)
+            {
+                highlightMeshRenderer.SetActive(true);
+            }
+        }
+
+        private void OnTriggerExit(Collider other)
+        {
+            if (string.Compare(weightObjName, other.gameObject.name, StringComparison.OrdinalIgnoreCase) == 0)
+            {
+                highlightMeshRenderer.SetActive(false);
+            }
         }
     }
 }

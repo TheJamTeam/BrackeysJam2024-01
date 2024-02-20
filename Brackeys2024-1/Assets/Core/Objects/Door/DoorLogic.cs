@@ -1,9 +1,10 @@
 using System;
 using System.Collections;
+using Core.Audio;
+using CustomScripts.Core.Objects.Triggers;
 using UnityEngine;
-using Core.Objects.Triggers;
 
-namespace Core.Objects.Door
+namespace CustomScripts.Core.Objects.Door
 {
     public class DoorLogic : MonoBehaviour
     {

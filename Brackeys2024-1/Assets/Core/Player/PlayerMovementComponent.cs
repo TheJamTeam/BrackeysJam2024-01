@@ -1,73 +1,72 @@
-using System.Collections;
-using System.Collections.Generic;
+using CustomScripts.Core.Input;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-public class PlayerMovementComponent : MonoBehaviour
+namespace CustomScripts.Core.Player
 {
-    [Header("Components")]
-    public Transform playerCamera;
-
-    [Header("Movement")]
-    public float movementSpeed;
-    private Vector3 _movementInput;
-    private Vector3 velocity;
-    public Vector3 Velocity => velocity;
-
-    [Header("Rotation")]
-    public float rotationSensitivity;
-    public float rotationDeadZone;
-    public Vector2 verticalRotationLimits;
-    private Vector3 _currentRotation = Vector3.zero;
-    private float horizontalRotationInput;
-    private float verticalRotationInput;
-    
-    void OnEnable()
+    public class PlayerMovementComponent : MonoBehaviour
     {
-        InputManager.OnMoveUpdated += OnMovementInput;
-        InputManager.OnLookUpdated += OnLookInput;
-    }
-    
-    void OnDisable()
-    {
-        InputManager.OnMoveUpdated -= OnMovementInput;
-        InputManager.OnLookUpdated -= OnLookInput;
-    }
+        [Header("Components")] public Transform playerCamera;
 
-    void FixedUpdate()
-    {
-		if(Game.IsPaused) return;
+        [Header("Movement")] public float movementSpeed;
+        private Vector3 _movementInput;
+        private Vector3 velocity;
+        public Vector3 Velocity => velocity;
 
-        if (_movementInput != Vector3.zero)
+        [Header("Rotation")] public float rotationSensitivity;
+        public float rotationDeadZone;
+        public Vector2 verticalRotationLimits;
+        private Vector3 _currentRotation = Vector3.zero;
+        private float horizontalRotationInput;
+        private float verticalRotationInput;
+
+        void OnEnable()
         {
-            velocity = Time.deltaTime * movementSpeed * _movementInput;
-            transform.Translate( velocity);
+            InputManager.OnMoveUpdated += OnMovementInput;
+            InputManager.OnLookUpdated += OnLookInput;
         }
-        
-        //Horizontal Rotation
-        _currentRotation.x += horizontalRotationInput * rotationSensitivity;
-        _currentRotation.x = _currentRotation.x % 360.0f;
-        transform.rotation = Quaternion.Euler(0, _currentRotation.x, 0);
-        
-        //Vertical Rotation
-        _currentRotation.y += verticalRotationInput * rotationSensitivity;
-        _currentRotation.y = Mathf.Clamp(_currentRotation.y, verticalRotationLimits.x, verticalRotationLimits.y);
-        playerCamera.transform.localRotation = Quaternion.Euler(-_currentRotation.y, 0 , 0);
-    }
 
-    public bool IsMoving()
-    {
-        return !Game.IsPaused && _movementInput != Vector3.zero;
-    }
+        void OnDisable()
+        {
+            InputManager.OnMoveUpdated -= OnMovementInput;
+            InputManager.OnLookUpdated -= OnLookInput;
+        }
 
-    void OnMovementInput(Vector2 input)
-    {
-        _movementInput = new Vector3(input.x, 0, input.y);
-    }
+        void FixedUpdate()
+        {
+            if (Game.IsPaused) return;
 
-    void OnLookInput(Vector2 inputDelta)
-    {
-        horizontalRotationInput = inputDelta.x;
-        verticalRotationInput = inputDelta.y;
+            if (_movementInput != Vector3.zero)
+            {
+                velocity = Time.deltaTime * movementSpeed * _movementInput;
+                transform.Translate(velocity);
+            }
+
+            //Horizontal Rotation
+            _currentRotation.x += horizontalRotationInput * rotationSensitivity;
+            _currentRotation.x = _currentRotation.x % 360.0f;
+            transform.rotation = Quaternion.Euler(0, _currentRotation.x, 0);
+
+            //Vertical Rotation
+            _currentRotation.y += verticalRotationInput * rotationSensitivity;
+            _currentRotation.y = Mathf.Clamp(_currentRotation.y, verticalRotationLimits.x, verticalRotationLimits.y);
+            playerCamera.transform.localRotation = Quaternion.Euler(-_currentRotation.y, 0, 0);
+        }
+
+        public bool IsMoving()
+        {
+            return !Game.IsPaused && _movementInput != Vector3.zero;
+        }
+
+        void OnMovementInput(Vector2 input)
+        {
+            _movementInput = new Vector3(input.x, 0, input.y);
+        }
+
+        void OnLookInput(Vector2 inputDelta)
+        {
+            horizontalRotationInput = inputDelta.x;
+            verticalRotationInput = inputDelta.y;
+        }
     }
 }
