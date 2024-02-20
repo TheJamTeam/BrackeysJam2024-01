@@ -1691,8 +1691,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 24
-  m_fontSizeBase: 24
+  m_fontSize: 40
+  m_fontSizeBase: 40
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -3653,44 +3653,55 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'Programming:
 
+    - Sabrina Cooke
+
     - Jeremy Kiel
 
-    - NAME HERE
+    - Madi Reilly
+
+    -
+    Kris Sian
 
 
     3D Art:
 
-    -
-    NAME HERE
+    - Shannon Body / Chiyaa
 
 
     Acting:
 
-    - NAME HERE
+    - Seong
+    Young-Her
 
 
     Design:
 
-    - NAME HERE
+    - Kris Sian
+
+    - Seong Young-Her
+
+    - Sabrina
+    Cooke
 
 
     Narrative:
 
-    -
-    NAME HERE
+    - Ariel Waldron
+
+    - Kris Sian
 
 
     SFX & Music:
 
-    - NAME HERE
+    -
+    ThisIsDioni
+
+    - SJ
 
 
     UI:
 
-    - Jeremy Kiel
-
-    -
-    NAME HERE'
+    - Jeremy Kiel'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: f4e4ade03256315489928e354975bb90, type: 2}
   m_sharedMaterial: {fileID: 7828144681762145885, guid: f4e4ade03256315489928e354975bb90,
@@ -9332,6 +9343,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2849904549416316264, guid: 792969756d0701a48a2917ae8fc7878b,
+        type: 3}
+      propertyPath: musicVolume
+      value: 0.4
+      objectReference: {fileID: 0}
     - target: {fileID: 3850225283944689370, guid: 792969756d0701a48a2917ae8fc7878b,
         type: 3}
       propertyPath: m_RootOrder
@@ -9415,9 +9431,7 @@ MonoBehaviour:
   music:
   - name: TitleExample
     clips:
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
+    - {fileID: 8300000, guid: ac150a8efa9ccf64797008f51965ddca, type: 3}
     volumePercent: 1
   playFirstTrackOnStart: 1
 --- !u!222 &4602226060513367755
