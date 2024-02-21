@@ -2851,8 +2851,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 593486246}
-  - component: {fileID: 593486248}
-  - component: {fileID: 593486247}
   m_Layer: 0
   m_Name: Exit Door
   m_TagString: Untagged
@@ -2877,53 +2875,6 @@ Transform:
   m_Father: {fileID: 761299215}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
---- !u!114 &593486247
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 593486245}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eb0acee71b96b1d4e838f8cc686d9192, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sounds:
-  - name: Open
-    clips:
-    - {fileID: 8300000, guid: 5fce322e723215b46bada8bda3dccca6, type: 3}
-    - {fileID: 8300000, guid: 230a402b815829b42a9cf6082efd3fde, type: 3}
-    volumePercent: 1
-  - name: CloseSoft
-    clips: []
-    volumePercent: 1
-  - name: CloseSlam
-    clips: []
-    volumePercent: 1
---- !u!114 &593486248
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 593486245}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a9c521fe9eb5a9b45b8b9d8228539956, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  RotationOrigin: {fileID: 705933778}
-  isOpen: 0
-  openDuration: 1.5
-  closeDurationSlow: 1.2
-  closeDurationFast: 0.5
-  rotationAmount: 95
-  triggeringInteractID: Blank Canvas
-  doorID: 1
-  openAudioToPlay: Open
-  closeSoftAudioToPlay: CloseSoft
-  closeSlamAudioToPlay: CloseSlam
 --- !u!1 &661358108
 GameObject:
   m_ObjectHideFlags: 0
@@ -3064,7 +3015,7 @@ BoxCollider:
   m_GameObject: {fileID: 668729013}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 0.019147983, y: 0.0022960173, z: 0.03509745}
   m_Center: {x: -0.0026848596, y: 0.0057129697, z: 0.006450526}
@@ -3906,7 +3857,7 @@ Transform:
   - {fileID: 535456598}
   - {fileID: 761299215}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &823042087
 GameObject:
