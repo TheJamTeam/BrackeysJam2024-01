@@ -82,7 +82,7 @@ namespace CustomScripts.Core.Objects.Door
             if (doorToCloseID == doorID && isOpen)
             {
                 Debug.Log(String.Format("Closing door {0}", doorToCloseID));
-                Close();
+                //Close();
             }
         }
 
